@@ -10,6 +10,8 @@
  * - Accessible with focus trap
  */
 
+import Button from '../ui/Button.astro';
+
 export interface Props {
   items: Array<{
     label: string;
@@ -84,12 +86,9 @@ const { items, class: className } = Astro.props;
 
         <!-- CTA Button -->
         <div class="mt-8 px-6">
-          <a
-            href="/join"
-            class="block w-full bg-primary text-background px-6 py-3 rounded font-medium text-center hover:bg-primary/90 transition-colors"
-          >
+          <Button href="/join" variant="primary" size="md" class="w-full text-center">
             Join the Movement
-          </a>
+          </Button>
         </div>
       </div>
 

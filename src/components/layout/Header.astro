@@ -11,11 +11,12 @@
 
 import Hexagon from '../ui/Hexagon.astro';
 import MobileMenu from './MobileMenu.astro';
+import Button from '../ui/Button.astro';
 
 const navItems = [
   { label: 'About', href: '/about' },
+  { label: 'Research', href: '/projects' },
   { label: 'Pods', href: '/pods' },
-  { label: 'Projects', href: '/projects' },
   { label: 'Community', href: '/community' },
 ];
 ---
@@ -39,9 +40,9 @@ const navItems = [
 
     <!-- CTA Button -->
     <div class="hidden md:block">
-      <a href="/join" class="bg-primary text-background px-6 py-2 rounded font-medium hover:bg-primary/90 transition-colors">
+      <Button href="/join" variant="primary" size="md">
         Join the Movement
-      </a>
+      </Button>
     </div>
 
     <!-- Mobile Menu -->
