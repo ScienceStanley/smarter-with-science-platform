@@ -9,7 +9,7 @@
  * - SwS branding with hexagon logo element
  */
 
-import Hexagon from '../ui/Hexagon.astro';
+import OptimizedImage from '../ui/OptimizedImage.astro';
 import MobileMenu from './MobileMenu.astro';
 import Button from '../ui/Button.astro';
 
@@ -24,9 +24,19 @@ const navItems = [
 <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-all duration-300" id="header">
   <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-      <Hexagon size="md" color="primary" />
-      <span class="text-xl font-bold text-text-bright">Smarter With Science</span>
+    <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity group">
+      <OptimizedImage
+        src="/images/sws-logo-pixel-placeholder.png"
+        alt="Smarter with Science"
+        width={40}
+        height={40}
+        class="h-8 w-8 md:h-10 md:w-10 group-hover:scale-105 transition-transform duration-200"
+        pixelArt={true}
+        priority={true}
+        loading="eager"
+      />
+      <span class="text-xl font-bold text-text-bright hidden sm:block">Smarter With Science</span>
+      <span class="text-lg font-bold text-text-bright sm:hidden">SwS</span>
     </a>
 
     <!-- Desktop Navigation -->
