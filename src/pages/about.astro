@@ -1,10 +1,524 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
+/**
+ * About Page
+ * Comprehensive information about Smarter with Science mission, vision, and impact
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedImage from '../components/ui/OptimizedImage.astro';
+import Button from '../components/ui/Button.astro';
+import Hexagon from '../components/ui/Hexagon.astro';
+
+// Team members data
+const teamMembers = [
+  {
+    name: 'Dr. Science Stanley',
+    role: 'Founder & Chief Visionary',
+    bio: 'Passionate about making science accessible to everyone. PhD in Computational Biology with 15+ years in community-driven research.',
+    avatar: '/images/team/stanley-pixel.svg',
+    expertise: ['Community Science', 'Open Research', 'Science Communication'],
+    social: {
+      twitter: '@ScienceStanley',
+      linkedin: '/in/science-stanley',
+      email: 'stanley@smarterwithscience.org'
+    }
+  },
+  {
+    name: 'Dr. Marina Costa',
+    role: 'Ocean ViSION Lead',
+    bio: 'Marine biologist and AI researcher leading breakthrough ocean conservation initiatives using computer vision.',
+    avatar: '/images/team/marina-pixel.svg',
+    expertise: ['Marine Biology', 'Computer Vision', 'Conservation AI'],
+    social: {
+      twitter: '@MarinaTech',
+      linkedin: '/in/marina-costa',
+      email: 'marina@smarterwithscience.org'
+    }
+  },
+  {
+    name: 'Dr. Quantum Chen',
+    role: 'Quantum Biology Pioneer',
+    bio: 'Quantum physicist exploring the quantum mechanics of life, with groundbreaking work in photosynthesis research.',
+    avatar: '/images/team/quantum-pixel.svg',
+    expertise: ['Quantum Physics', 'Biophysics', 'Photosynthesis'],
+    social: {
+      twitter: '@QuantumChen',
+      linkedin: '/in/quantum-chen',
+      email: 'quantum@smarterwithscience.org'
+    }
+  },
+  {
+    name: 'Sarah Martinez',
+    role: 'Community Technology Lead',
+    bio: 'Technology coordinator empowering communities with tools and training for climate resilience and environmental monitoring.',
+    avatar: '/images/team/sarah-pixel.svg',
+    expertise: ['Community Tech', 'Climate Adaptation', 'IoT Systems'],
+    social: {
+      twitter: '@SarahTechClimate',
+      linkedin: '/in/sarah-martinez-tech',
+      email: 'sarah@smarterwithscience.org'
+    }
+  }
+];
+
+const milestones = [
+  {
+    year: '2020',
+    title: 'SwS Foundation',
+    description: 'Launched with the vision of democratizing scientific research through community collaboration.',
+    impact: 'First 100 community scientists join'
+  },
+  {
+    year: '2021',
+    title: 'Ocean ViSION Launch',
+    description: 'First research pod established, focusing on AI-powered marine conservation.',
+    impact: 'Identified 1,000+ marine species'
+  },
+  {
+    year: '2022',
+    title: 'Quantum Biology Breakthrough',
+    description: 'Revolutionary discoveries in photosynthesis efficiency using quantum coherence.',
+    impact: 'Published in Nature, cited 500+ times'
+  },
+  {
+    year: '2023',
+    title: 'Community Resilience Network',
+    description: 'Expanded to support local climate adaptation initiatives worldwide.',
+    impact: 'Protected 200+ communities'
+  },
+  {
+    year: '2024',
+    title: 'AI Impact Initiative',
+    description: 'Launched ethical AI development focused on social good and accessibility.',
+    impact: '1,500+ active contributors globally'
+  }
+];
+
+const values = [
+  {
+    icon: '🌍',
+    title: 'Open Science',
+    description: 'All research data, methods, and findings are freely available to accelerate discovery.',
+    details: 'We believe science belongs to everyone. Our open-source approach ensures knowledge is accessible worldwide.'
+  },
+  {
+    icon: '🤝',
+    title: 'Community-Driven',
+    description: 'Research priorities and methods emerge from community needs and interests.',
+    details: 'Scientists, citizens, patients, and advocates work together as equal partners in discovery.'
+  },
+  {
+    icon: '⚡',
+    title: 'Impact-Focused',
+    description: 'Every project aims to create tangible improvements in human and planetary wellbeing.',
+    details: 'We measure success not just by publications, but by real-world positive change.'
+  },
+  {
+    icon: '🔬',
+    title: 'Scientific Rigor',
+    description: 'Community involvement enhances rather than compromises scientific quality.',
+    details: 'Diverse perspectives and distributed expertise often lead to more robust science.'
+  },
+  {
+    icon: '🌱',
+    title: 'Sustainable Innovation',
+    description: 'Technology and research methods that are accessible, affordable, and environmentally responsible.',
+    details: 'Innovation should be sustainable for both communities and the planet.'
+  },
+  {
+    icon: '📚',
+    title: 'Education & Empowerment',
+    description: 'Building scientific literacy and research capacity in all communities.',
+    details: 'Everyone has the potential to contribute to scientific understanding.'
+  }
+];
+
+const stats = [
+  { value: '1,555', label: 'Active Contributors', description: 'Researchers, citizens, and advocates worldwide' },
+  { value: '41', label: 'Active Projects', description: 'Ongoing research initiatives across all pods' },
+  { value: '78', label: 'Scientific Discoveries', description: 'Peer-reviewed findings and breakthroughs' },
+  { value: '172', label: 'Countries', description: 'Global reach and collaboration' },
+  { value: '500K+', label: 'People Impacted', description: 'Communities benefiting from our research' },
+  { value: '12M+', label: 'Data Points Collected', description: 'Observations contributing to science' }
+];
 ---
 
-<PageLayout title="About" description="Learn about Smarter With Science's mission to democratize research through community collaboration.">
-  <section class="container mx-auto px-4 py-3xl">
-    <h1 class="text-4xl font-space-grotesk font-light text-text-bright mb-lg">About SwS</h1>
-    <p class="text-lg text-text">Page coming soon...</p>
-  </section>
-</PageLayout>
+<BaseLayout title="About | Smarter with Science" description="Learn about our mission to democratize scientific research through community collaboration and open science.">
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="section-padding-lg relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <OptimizedImage
+          src="/images/hero-banner-pixel.svg"
+          alt="Pixel art galaxy background"
+          width={1200}
+          height={400}
+          class="w-full h-full object-cover"
+          pixelArt={true}
+          priority={true}
+        />
+      </div>
+      
+      <div class="container mx-auto relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold text-text-bright mb-md">
+            About <span class="gradient-text">Smarter with Science</span>
+          </h1>
+          <p class="text-lg md:text-xl text-text mb-lg">
+            We're building a future where scientific discovery is a collaborative effort 
+            between researchers, communities, and curious minds everywhere.
+          </p>
+          
+          <!-- Mission Statement -->
+          <div class="bg-surface/30 border border-border rounded-lg p-xl max-w-3xl mx-auto">
+            <blockquote class="text-xl md:text-2xl font-space-grotesk font-light text-text-bright italic leading-relaxed">
+              "Science plus community equals exponential impact"
+            </blockquote>
+            <p class="text-text mt-md">
+              Our mission is to democratize scientific research by creating autonomous working groups 
+              where anyone can contribute to solving humanity's greatest challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="grid lg:grid-cols-2 gap-2xl items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-lg">
+              Our Story
+            </h2>
+            <div class="space-y-md text-text leading-relaxed">
+              <p>
+                Smarter with Science began with a simple observation: the most innovative solutions often 
+                come from diverse groups working together, yet traditional scientific research was largely 
+                confined to academic institutions.
+              </p>
+              <p>
+                We envisioned a world where a marine biologist in California could collaborate with 
+                a citizen scientist in the Philippines, where AI researchers could work directly with 
+                the communities their tools would serve, and where breakthrough discoveries could 
+                emerge from unexpected connections.
+              </p>
+              <p>
+                Today, our research pods demonstrate that this vision is not only possible but 
+                produces better science. Our community-driven approach has led to discoveries that 
+                might have taken decades using traditional methods, while ensuring that research 
+                benefits reach the communities that need them most.
+              </p>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <div class="bg-surface/20 border border-border rounded-lg p-xl">
+              <h3 class="text-xl font-space-grotesk font-bold text-text-bright mb-md">
+                Why Community Science?
+              </h3>
+              <ul class="space-y-sm">
+                <li class="flex items-start space-x-sm">
+                  <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                  <span class="text-text text-sm">
+                    <strong>Diverse Perspectives:</strong> Communities closest to problems often have unique insights
+                  </span>
+                </li>
+                <li class="flex items-start space-x-sm">
+                  <div class="w-2 h-2 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                  <span class="text-text text-sm">
+                    <strong>Rapid Implementation:</strong> Direct connection between research and application
+                  </span>
+                </li>
+                <li class="flex items-start space-x-sm">
+                  <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                  <span class="text-text text-sm">
+                    <strong>Global Scale:</strong> Distributed networks can tackle planetary challenges
+                  </span>
+                </li>
+                <li class="flex items-start space-x-sm">
+                  <div class="w-2 h-2 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                  <span class="text-text text-sm">
+                    <strong>Democratic Science:</strong> Research priorities set by societal needs
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto">
+        <div class="text-center mb-2xl">
+          <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-md">
+            Our Values
+          </h2>
+          <p class="text-lg text-text max-w-3xl mx-auto">
+            These principles guide every decision, every project, and every collaboration 
+            within the Smarter with Science community.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-xl">
+          {values.map(value => (
+            <div class="bg-surface/30 border border-border rounded-lg p-lg hover:border-primary/50 transition-all duration-300 group">
+              <div class="text-4xl mb-md">{value.icon}</div>
+              <h3 class="text-xl font-space-grotesk font-bold text-text-bright mb-sm group-hover:text-primary transition-colors">
+                {value.title}
+              </h3>
+              <p class="text-text text-sm leading-relaxed mb-md">
+                {value.description}
+              </p>
+              <p class="text-text text-xs leading-relaxed opacity-80">
+                {value.details}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-2xl">
+          <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-md">
+            Our Journey
+          </h2>
+          <p class="text-lg text-text max-w-3xl mx-auto">
+            From a vision to a global movement, see how Smarter with Science has grown 
+            and evolved over the years.
+          </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="relative">
+            <!-- Timeline line -->
+            <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-success to-primary opacity-30"></div>
+            
+            <div class="space-y-xl">
+              {milestones.map((milestone, index) => (
+                <div class="relative flex items-start space-x-lg">
+                  <!-- Timeline dot -->
+                  <div class={`w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 z-10 ${
+                    index % 2 === 0 ? 'bg-primary' : 'bg-success'
+                  }`}>
+                    <span class="text-background font-bold">{milestone.year}</span>
+                  </div>
+                  
+                  <!-- Content -->
+                  <div class="bg-surface/30 border border-border rounded-lg p-lg flex-1">
+                    <h3 class="text-xl font-space-grotesk font-bold text-text-bright mb-sm">
+                      {milestone.title}
+                    </h3>
+                    <p class="text-text leading-relaxed mb-sm">
+                      {milestone.description}
+                    </p>
+                    <div class={`text-sm font-medium ${index % 2 === 0 ? 'text-primary' : 'text-success'}`}>
+                      Impact: {milestone.impact}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto">
+        <div class="text-center mb-2xl">
+          <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-md">
+            Meet Our Team
+          </h2>
+          <p class="text-lg text-text max-w-3xl mx-auto">
+            The passionate researchers, technologists, and community organizers 
+            leading our research pods and community initiatives.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-xl">
+          {teamMembers.map(member => (
+            <div class="bg-surface/30 border border-border rounded-lg overflow-hidden group hover:border-primary/50 transition-all duration-300">
+              <!-- Avatar -->
+              <div class="relative h-48 bg-gradient-to-br from-primary/20 to-success/20 flex items-center justify-center">
+                <OptimizedImage
+                  src={member.avatar}
+                  alt={`${member.name} pixel art avatar`}
+                  width={150}
+                  height={150}
+                  class="w-32 h-32"
+                  pixelArt={true}
+                />
+              </div>
+              
+              <!-- Content -->
+              <div class="p-lg">
+                <h3 class="font-space-grotesk font-bold text-text-bright mb-xs group-hover:text-primary transition-colors">
+                  {member.name}
+                </h3>
+                <p class="text-success text-sm font-medium mb-sm">{member.role}</p>
+                <p class="text-text text-xs leading-relaxed mb-md">{member.bio}</p>
+                
+                <!-- Expertise tags -->
+                <div class="flex flex-wrap gap-xs mb-md">
+                  {member.expertise.map(skill => (
+                    <span class="px-xs py-1 text-xs bg-primary/10 text-primary rounded">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                
+                <!-- Social links -->
+                <div class="flex items-center space-x-sm">
+                  <a href={`https://twitter.com/${member.social.twitter.replace('@', '')}`} 
+                     class="text-text hover:text-primary transition-colors" 
+                     target="_blank" 
+                     rel="noopener noreferrer">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
+                    </svg>
+                  </a>
+                  <a href={`https://linkedin.com${member.social.linkedin}`} 
+                     class="text-text hover:text-primary transition-colors" 
+                     target="_blank" 
+                     rel="noopener noreferrer">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/>
+                    </svg>
+                  </a>
+                  <a href={`mailto:${member.social.email}`} 
+                     class="text-text hover:text-primary transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-2xl">
+          <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-md">
+            Our Impact by Numbers
+          </h2>
+          <p class="text-lg text-text max-w-3xl mx-auto">
+            These metrics represent real people, real discoveries, and real positive change 
+            happening around the world through community-driven science.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-lg max-w-4xl mx-auto">
+          {stats.map(stat => (
+            <div class="text-center bg-surface/20 border border-border rounded-lg p-lg">
+              <div class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-xs">
+                {stat.value}
+              </div>
+              <div class="text-lg font-space-grotesk font-medium text-text-bright mb-xs">
+                {stat.label}
+              </div>
+              <div class="text-sm text-text">
+                {stat.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Join the Movement CTA -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-text-bright mb-md">
+            Ready to Change the World?
+          </h2>
+          <p class="text-lg text-text mb-lg">
+            Join thousands of researchers, students, professionals, and curious minds 
+            who are proving that science plus community equals exponential impact.
+          </p>
+          
+          <div class="grid md:grid-cols-3 gap-lg mb-lg">
+            <div class="text-center">
+              <Hexagon size="lg" color="primary" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Contribute</h3>
+              <p class="text-sm text-text">Share your expertise and learn from others</p>
+            </div>
+            <div class="text-center">
+              <Hexagon size="lg" color="success" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Collaborate</h3>
+              <p class="text-sm text-text">Work on projects that matter to you</p>
+            </div>
+            <div class="text-center">
+              <Hexagon size="lg" color="primary" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Create Impact</h3>
+              <p class="text-sm text-text">See your work make a real difference</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-sm justify-center">
+            <Button variant="primary" size="lg" href="/join">
+              Join the Movement
+            </Button>
+            <Button variant="secondary" size="lg" href="/pods">
+              Explore Research Pods
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Timeline styling */
+  .timeline-item {
+    @apply relative flex items-start space-x-lg;
+  }
+  
+  .timeline-item::before {
+    @apply absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-primary to-success opacity-30 content-[''];
+  }
+  
+  .timeline-item:last-child::before {
+    @apply hidden;
+  }
+  
+  /* Team card hover effects */
+  .team-card {
+    @apply transform transition-all duration-300;
+  }
+  
+  .team-card:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+  
+  /* Stats counter animation */
+  @keyframes countUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .stat-card {
+    animation: countUp 0.6s ease-out forwards;
+  }
+  
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+  .stat-card:nth-child(5) { animation-delay: 0.5s; }
+  .stat-card:nth-child(6) { animation-delay: 0.6s; }
+</style>
