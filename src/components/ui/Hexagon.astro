@@ -13,7 +13,7 @@ export interface Props {
   /** Size variant */
   size?: 'sm' | 'md' | 'lg' | 'xl';
   /** Color variant */
-  color?: 'primary' | 'secondary' | 'success' | 'outline';
+  color?: 'primary' | 'secondary' | 'success' | 'outline' | string;
   /** Additional CSS classes */
   class?: string;
 }
@@ -31,7 +31,7 @@ const sizeClasses = {
   xl: 'w-24 h-24'
 };
 
-const colorClasses = {
+const colorClasses: Record<string, string> = {
   primary: 'bg-primary',
   secondary: 'bg-surface border-2 border-primary',
   success: 'bg-success',
@@ -43,7 +43,7 @@ const classes = [
   'hexagon flex items-center justify-center',
   'transition-all duration-200 ease-out',
   sizeClasses[size],
-  colorClasses[color],
+  colorClasses[color] || colorClasses.primary,
   className
 ].filter(Boolean).join(' ');
 ---
