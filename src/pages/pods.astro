@@ -4,7 +4,7 @@
  * Showcase all research pods with detailed information and project galleries
  */
 
-import BaseLayout from '../layouts/BaseLayout.astro';
+import PageLayout from '../layouts/PageLayout.astro';
 import OptimizedImage from '../components/ui/OptimizedImage.astro';
 import Button from '../components/ui/Button.astro';
 import Hexagon from '../components/ui/Hexagon.astro';
@@ -202,8 +202,7 @@ const pods = [
 ];
 ---
 
-<BaseLayout title="Research Pods | Smarter with Science" description="Explore our autonomous research pods tackling humanity's greatest challenges through open collaboration.">
-  <main class="min-h-screen bg-background">
+<PageLayout title="Research Pods | Smarter with Science" description="Explore our autonomous research pods tackling humanity's greatest challenges through open collaboration.">
     <!-- Hero Section -->
     <section class="section-padding-lg relative overflow-hidden">
       <div class="absolute inset-0 opacity-20">
@@ -428,8 +427,7 @@ const pods = [
         </div>
       </div>
     </section>
-  </main>
-</BaseLayout>
+</PageLayout>
 
 <style>
   .pod-section {

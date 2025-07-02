@@ -4,7 +4,7 @@
  * Comprehensive information about Smarter with Science mission, vision, and impact
  */
 
-import BaseLayout from '../layouts/BaseLayout.astro';
+import PageLayout from '../layouts/PageLayout.astro';
 import OptimizedImage from '../components/ui/OptimizedImage.astro';
 import Button from '../components/ui/Button.astro';
 import Hexagon from '../components/ui/Hexagon.astro';
@@ -143,8 +143,7 @@ const stats = [
 ];
 ---
 
-<BaseLayout title="About | Smarter with Science" description="Learn about our mission to democratize scientific research through community collaboration and open science.">
-  <main class="min-h-screen bg-background">
+<PageLayout title="About | Smarter with Science" description="Learn about our mission to democratize scientific research through community collaboration and open science.">
     <!-- Hero Section -->
     <section class="section-padding-lg relative overflow-hidden">
       <div class="absolute inset-0 opacity-20">
@@ -479,8 +478,7 @@ const stats = [
         </div>
       </div>
     </section>
-  </main>
-</BaseLayout>
+</PageLayout>
 
 <style>
   /* Timeline styling */

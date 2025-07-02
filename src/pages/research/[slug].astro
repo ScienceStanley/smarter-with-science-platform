@@ -4,7 +4,7 @@
  * Dynamic route for displaying individual research blog posts
  */
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import OptimizedImage from '../../components/ui/OptimizedImage.astro';
 import Button from '../../components/ui/Button.astro';
 
@@ -145,8 +145,7 @@ const title = `${post.title} | Research Blog | Smarter with Science`;
 const description = post.excerpt;
 ---
 
-<BaseLayout title={title} description={description}>
-  <main class="min-h-screen bg-background">
+<PageLayout title={title} description={description}>
     <!-- Article Header -->
     <article class="max-w-4xl mx-auto">
       <!-- Hero Image -->
@@ -314,8 +313,7 @@ const description = post.excerpt;
         </div>
       </div>
     </section>
-  </main>
-</BaseLayout>
+</PageLayout>
 
 <style>
   /* Article content styling */

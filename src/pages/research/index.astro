@@ -4,7 +4,7 @@
  * Main landing page for the research blog with latest posts
  */
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import OptimizedImage from '../../components/ui/OptimizedImage.astro';
 import Button from '../../components/ui/Button.astro';
 
@@ -82,8 +82,7 @@ const featuredPost = blogPosts.find(post => post.featured);
 const regularPosts = blogPosts.filter(post => !post.featured);
 ---
 
-<BaseLayout title="Research Blog | Smarter with Science" description="Latest research discoveries, breakthroughs, and insights from our community of scientists and researchers.">
-  <main class="min-h-screen bg-background">
+<PageLayout title="Research Blog | Smarter with Science" description="Latest research discoveries, breakthroughs, and insights from our community of scientists and researchers.">
     <!-- Hero Section -->
     <section class="section-padding-lg relative overflow-hidden">
       <div class="absolute inset-0 opacity-20">
@@ -300,8 +299,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
         </div>
       </div>
     </section>
-  </main>
-</BaseLayout>
+</PageLayout>
 
 <style>
   .category-filter.active {
