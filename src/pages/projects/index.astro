@@ -1,0 +1,260 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/projects/ProjectCard.astro';
+import FilterBar from '../../components/projects/FilterBar.astro';
+import Button from '../../components/ui/Button.astro';
+import { getCollection } from 'astro:content';
+
+// Get all projects
+const allProjects = await getCollection('projects');
+
+// Sort by last updated date (most recent first)
+const projects = allProjects.sort((a, b) => 
+  b.data.lastUpdated.getTime() - a.data.lastUpdated.getTime()
+);
+
+// Get featured projects
+const featuredProjects = projects.filter(p => p.data.featured);
+---
+
+<PageLayout 
+  title="Research Projects" 
+  description="Explore groundbreaking DeSci research projects from our community of scientists, technologists, and advocates working to democratize science."
+>
+  <!-- Page Header -->
+  <section class="bg-surface/30 py-xl border-b border-border">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-space-grotesk font-light text-text-bright mb-md">
+          Research Projects
+        </h1>
+        <p class="text-lg text-text mb-lg">
+          Discover innovative research initiatives driven by our community. 
+          Every project here represents collaboration between scientists, patients, 
+          advocates, and technologists working together to solve humanity's greatest challenges.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button variant="primary" href="/submit-project">
+            Submit Your Project
+          </Button>
+          <Button variant="secondary" href="/contribute">
+            How to Contribute
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <FilterBar />
+
+  <!-- Main Content -->
+  <section class="container mx-auto px-4 py-2xl">
+    <!-- Featured Projects (if any) -->
+    {featuredProjects.length > 0 && (
+      <div class="mb-2xl">
+        <h2 class="text-2xl font-space-grotesk font-light text-text-bright mb-lg">
+          Featured Projects
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+          {featuredProjects.slice(0, 2).map(project => (
+            <div class="featured-project">
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- All Projects Grid -->
+    <div class="projects-container">
+      <h2 class="text-2xl font-space-grotesk font-light text-text-bright mb-lg">
+        All Projects
+      </h2>
+      
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
+        {projects.map((project, index) => (
+          <div 
+            class="project-wrapper"
+            data-project={JSON.stringify({
+              title: project.data.title.toLowerCase(),
+              description: project.data.description.toLowerCase(),
+              pod: project.data.pod.name.toLowerCase().replace(/\s+/g, '-'),
+              status: project.data.status,
+              technologies: project.data.technologies.map(t => t.toLowerCase()),
+              featured: project.data.featured,
+              lastUpdated: project.data.lastUpdated.toISOString()
+            })}
+            style={`animation-delay: ${index * 50}ms;`}
+          >
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+      
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden text-center py-3xl">
+        <p class="text-lg text-text mb-md">No projects match your criteria</p>
+        <p class="text-text/70 mb-lg">Try adjusting your filters or search terms</p>
+        <button 
+          class="inline-flex items-center justify-center font-medium transition-all duration-200 ease-out rounded bg-transparent border border-primary text-primary hover:bg-primary/10 px-6 py-3 text-base"
+          onclick="clearFilters()"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .project-wrapper {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+  
+  .featured-project {
+    position: relative;
+  }
+  
+  .featured-project::before {
+    content: 'Featured';
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    background: var(--color-primary);
+    color: var(--color-background);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 10;
+  }
+  
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .project-wrapper {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  // Get DOM elements
+  const projectWrappers = document.querySelectorAll('.project-wrapper');
+  const projectsGrid = document.getElementById('projects-grid');
+  const emptyState = document.getElementById('empty-state');
+  
+  // Listen for filter events
+  document.addEventListener('filterProjects', ((event: CustomEvent) => {
+    const filters = event.detail;
+    let visibleCount = 0;
+    
+    projectWrappers.forEach(wrapper => {
+      const projectData = JSON.parse(wrapper.getAttribute('data-project') || '{}');
+      let show = true;
+      
+      // Search filter
+      if (filters.search && !projectData.title.includes(filters.search) && 
+          !projectData.description.includes(filters.search) &&
+          !projectData.technologies.some((tech: string) => tech.includes(filters.search))) {
+        show = false;
+      }
+      
+      // Pod filter
+      if (filters.pod !== 'all') {
+        const podMap: Record<string, string> = {
+          'ocean-vision': 'ocean-vision',
+          'ai-impact': 'ai-impact-ventures',
+          'quantum-bio': 'quantum-biology',
+          'community': 'community-resilience'
+        };
+        if (projectData.pod !== podMap[filters.pod]) {
+          show = false;
+        }
+      }
+      
+      // Status filter
+      if (filters.status !== 'all' && projectData.status !== filters.status) {
+        show = false;
+      }
+      
+      // Show/hide project
+      if (show) {
+        wrapper.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        wrapper.classList.add('hidden');
+      }
+    });
+    
+    // Show/hide empty state
+    if (visibleCount === 0) {
+      projectsGrid?.classList.add('hidden');
+      emptyState?.classList.remove('hidden');
+    } else {
+      projectsGrid?.classList.remove('hidden');
+      emptyState?.classList.add('hidden');
+    }
+    
+    // Sort projects if needed
+    if (filters.sort && projectsGrid) {
+      const sorted = Array.from(projectWrappers).sort((a, b) => {
+        const aData = JSON.parse(a.getAttribute('data-project') || '{}');
+        const bData = JSON.parse(b.getAttribute('data-project') || '{}');
+        
+        switch (filters.sort) {
+          case 'alphabetical':
+            return aData.title.localeCompare(bData.title);
+          case 'featured':
+            return (bData.featured ? 1 : 0) - (aData.featured ? 1 : 0);
+          case 'recent':
+          default:
+            return new Date(bData.lastUpdated).getTime() - new Date(aData.lastUpdated).getTime();
+        }
+      });
+      
+      // Re-append in sorted order
+      sorted.forEach(el => projectsGrid.appendChild(el));
+    }
+  }) as EventListener);
+  
+  // Clear filters function
+  (window as any).clearFilters = function() {
+    // Reset all filters
+    document.querySelectorAll('.pod-filter').forEach(button => {
+      button.setAttribute('aria-pressed', button.getAttribute('data-pod') === 'all' ? 'true' : 'false');
+    });
+    
+    const searchInputs = document.querySelectorAll('#search-input-mobile, #search-input-desktop');
+    searchInputs.forEach(input => {
+      if (input instanceof HTMLInputElement) {
+        input.value = '';
+      }
+    });
+    
+    const statusFilter = document.getElementById('status-filter') as HTMLSelectElement;
+    if (statusFilter) statusFilter.value = 'all';
+    
+    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+    if (sortSelect) sortSelect.value = 'recent';
+    
+    // Trigger filter update
+    const event = new CustomEvent('filterProjects', {
+      detail: { search: '', pod: 'all', status: 'all', sort: 'recent' }
+    });
+    document.dispatchEvent(event);
+  };
+</script>

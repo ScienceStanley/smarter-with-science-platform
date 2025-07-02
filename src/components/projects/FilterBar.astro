@@ -1,0 +1,231 @@
+---
+/**
+ * FilterBar.astro
+ * Project filtering and search functionality
+ * 
+ * Features:
+ * - Search input with debouncing
+ * - Pod filter buttons
+ * - Status filter dropdown
+ * - Sort options
+ * - Mobile-responsive layout
+ */
+
+const pods = [
+  { id: 'all', name: 'All Pods', icon: '🌟' },
+  { id: 'ocean-vision', name: 'Ocean ViSION', icon: '🌊' },
+  { id: 'ai-impact', name: 'AI Impact', icon: '🚀' },
+  { id: 'quantum-bio', name: 'Quantum Bio', icon: '⚛️' },
+  { id: 'community', name: 'Community', icon: '🏘️' }
+];
+
+const statuses = [
+  { value: 'all', label: 'All Status' },
+  { value: 'active', label: 'Active' },
+  { value: 'planning', label: 'Planning' },
+  { value: 'completed', label: 'Completed' }
+];
+
+const sortOptions = [
+  { value: 'recent', label: 'Recently Updated' },
+  { value: 'alphabetical', label: 'A-Z' },
+  { value: 'featured', label: 'Featured First' }
+];
+---
+
+<div class="sticky top-20 z-30 bg-background/95 backdrop-blur-md border-b border-border" id="filter-bar">
+  <div class="container mx-auto px-4 py-4">
+    <!-- Mobile Layout -->
+    <div class="lg:hidden space-y-4">
+      <!-- Search -->
+      <div class="relative">
+        <input
+          type="search"
+          placeholder="Search projects..."
+          class="w-full h-10 pl-10 pr-4 bg-surface/50 border border-border rounded-lg text-text placeholder:text-text/50 focus:border-primary focus:outline-none transition-colors"
+          id="search-input-mobile"
+        />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      
+      <!-- Filters Row -->
+      <div class="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+        {pods.map(pod => (
+          <button
+            data-pod={pod.id}
+            class="pod-filter flex-shrink-0 px-4 py-2 text-sm border border-border rounded-full transition-all duration-200 whitespace-nowrap"
+            aria-pressed={pod.id === 'all' ? 'true' : 'false'}
+          >
+            <span class="mr-1">{pod.icon}</span>
+            {pod.name}
+          </button>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Desktop Layout -->
+    <div class="hidden lg:flex items-center gap-6">
+      <!-- Search -->
+      <div class="relative flex-1 max-w-md">
+        <input
+          type="search"
+          placeholder="Search projects..."
+          class="w-full h-11 pl-11 pr-4 bg-surface/50 border border-border rounded-lg text-text placeholder:text-text/50 focus:border-primary focus:outline-none transition-colors"
+          id="search-input-desktop"
+        />
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      
+      <!-- Pod Filters -->
+      <div class="flex gap-2">
+        {pods.map(pod => (
+          <button
+            data-pod={pod.id}
+            class="pod-filter px-5 py-2 text-sm border border-border rounded-full transition-all duration-200 hover:border-primary"
+            aria-pressed={pod.id === 'all' ? 'true' : 'false'}
+          >
+            <span class="mr-1">{pod.icon}</span>
+            {pod.name}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Status Filter -->
+      <select 
+        id="status-filter"
+        class="h-11 px-4 bg-surface/50 border border-border rounded-lg text-text text-sm focus:border-primary focus:outline-none cursor-pointer"
+      >
+        {statuses.map(status => (
+          <option value={status.value}>{status.label}</option>
+        ))}
+      </select>
+      
+      <!-- Sort -->
+      <select 
+        id="sort-select"
+        class="h-11 px-4 bg-surface/50 border border-border rounded-lg text-text text-sm focus:border-primary focus:outline-none cursor-pointer"
+      >
+        {sortOptions.map(option => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </div>
+    
+    <!-- Results Count -->
+    <div class="mt-4 text-sm text-text">
+      <span id="results-count">Showing all projects</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Active filter styles */
+  .pod-filter[aria-pressed="true"] {
+    @apply bg-primary border-primary text-background;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  // Get all filter elements
+  const searchInputs = document.querySelectorAll('#search-input-mobile, #search-input-desktop');
+  const podFilters = document.querySelectorAll('.pod-filter');
+  const statusFilter = document.getElementById('status-filter') as HTMLSelectElement;
+  const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+  const resultsCount = document.getElementById('results-count');
+  
+  // Filter state
+  let filterState = {
+    search: '',
+    pod: 'all',
+    status: 'all',
+    sort: 'recent'
+  };
+  
+  // Pod filter handling
+  podFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update aria-pressed
+      podFilters.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      button.setAttribute('aria-pressed', 'true');
+      
+      // Update filter state
+      filterState.pod = button.getAttribute('data-pod') || 'all';
+      applyFilters();
+    });
+  });
+  
+  // Search handling with debounce
+  let searchTimeout: NodeJS.Timeout;
+  searchInputs.forEach(input => {
+    input.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const target = e.target as HTMLInputElement;
+      
+      searchTimeout = setTimeout(() => {
+        filterState.search = target.value.toLowerCase();
+        // Sync both search inputs
+        searchInputs.forEach(i => {
+          if (i !== target && i instanceof HTMLInputElement) {
+            i.value = target.value;
+          }
+        });
+        applyFilters();
+      }, 300);
+    });
+  });
+  
+  // Status filter handling
+  statusFilter?.addEventListener('change', () => {
+    filterState.status = statusFilter.value;
+    applyFilters();
+  });
+  
+  // Sort handling
+  sortSelect?.addEventListener('change', () => {
+    filterState.sort = sortSelect.value;
+    applyFilters();
+  });
+  
+  // Apply filters function
+  function applyFilters() {
+    // Dispatch custom event with filter state
+    const event = new CustomEvent('filterProjects', {
+      detail: filterState
+    });
+    document.dispatchEvent(event);
+    
+    // Update results count
+    updateResultsCount();
+  }
+  
+  // Update results count
+  function updateResultsCount() {
+    // This will be updated by the projects page
+    const count = document.querySelectorAll('.project-card:not(.hidden)').length;
+    const total = document.querySelectorAll('.project-card').length;
+    
+    if (resultsCount) {
+      if (filterState.search || filterState.pod !== 'all' || filterState.status !== 'all') {
+        resultsCount.textContent = `Showing ${count} of ${total} projects`;
+      } else {
+        resultsCount.textContent = `Showing all ${total} projects`;
+      }
+    }
+  }
+  
+  // Initialize
+  updateResultsCount();
+</script>
