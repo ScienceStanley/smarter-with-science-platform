@@ -1,0 +1,59 @@
+---
+/**
+ * Hexagon.astro
+ * Signature hexagonal shape component representing pods and scientific structure
+ * 
+ * Design specs from REQS.md:
+ * - Signature element for SwS brand identity
+ * - Used for pod representations and decorative elements
+ * - CSS-based shape for optimal performance
+ */
+
+export interface Props {
+  /** Size variant */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Color variant */
+  color?: 'primary' | 'secondary' | 'success' | 'outline';
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { 
+  size = 'md',
+  color = 'primary',
+  class: className 
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-8 h-8',
+  md: 'w-12 h-12',
+  lg: 'w-16 h-16',
+  xl: 'w-24 h-24'
+};
+
+const colorClasses = {
+  primary: 'bg-primary',
+  secondary: 'bg-surface border-2 border-primary',
+  success: 'bg-success',
+  outline: 'bg-transparent border-2 border-text'
+};
+
+const classes = [
+  // Base hexagon shape using clip-path
+  'hexagon flex items-center justify-center',
+  'transition-all duration-200 ease-out',
+  sizeClasses[size],
+  colorClasses[color],
+  className
+].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  <slot />
+</div>
+
+<style>
+.hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+</style>

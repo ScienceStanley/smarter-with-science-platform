@@ -1,0 +1,58 @@
+---
+/**
+ * Button.astro
+ * Core button component implementing the refined design system
+ * Variants: primary, secondary, ghost
+ * Sizes: sm, md, lg
+ * 
+ * Design specs from REQS.md:
+ * - Primary: #bd00ff background, 200ms transitions
+ * - Hover: Subtle translateY(-1px) only
+ * - Focus: 2px #bd00ff border with 2px offset
+ */
+
+export interface Props {
+  /** Visual style variant */
+  variant?: 'primary' | 'secondary' | 'ghost';
+  /** Size variant */
+  size?: 'sm' | 'md' | 'lg';
+  /** Optional link URL */
+  href?: string;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { 
+  variant = 'primary', 
+  size = 'md', 
+  href, 
+  class: className 
+} = Astro.props;
+
+const Component = href ? 'a' : 'button';
+
+const classes = [
+  // Base styles
+  'inline-flex items-center justify-center',
+  'font-medium rounded transition-all duration-200 ease-out',
+  'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background',
+  // Variant styles
+  variant === 'primary' && 'bg-primary text-background hover:bg-primary/90 hover:-translate-y-px',
+  variant === 'secondary' && 'border border-primary text-primary hover:bg-primary/10',
+  variant === 'ghost' && 'text-text hover:text-text-bright',
+  // Size styles
+  size === 'sm' && 'px-4 py-2 text-sm',
+  size === 'md' && 'px-6 py-3 text-base',
+  size === 'lg' && 'px-8 py-4 text-lg',
+  // Custom classes
+  className
+].filter(Boolean).join(' ');
+---
+
+<Component 
+  class={classes}
+  href={href}
+  {...href ? {} : { type: 'button' }}
+>
+  <slot />
+</Component>

@@ -1,0 +1,81 @@
+---
+/**
+ * Header.astro
+ * Main site header with sticky navigation
+ * 
+ * Design specs from REQS.md:
+ * - Sticky navigation with transparent-to-solid transition
+ * - Mobile-responsive with hamburger menu
+ * - SwS branding with hexagon logo element
+ */
+
+import Hexagon from '../ui/Hexagon.astro';
+---
+
+<header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-all duration-300" id="header">
+  <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+      <Hexagon size="md" color="primary" />
+      <span class="text-xl font-bold text-text-bright">Smarter With Science</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="/projects" class="text-text hover:text-text-bright transition-colors">Projects</a>
+      <a href="/pods" class="text-text hover:text-text-bright transition-colors">Pods</a>
+      <a href="/community" class="text-text hover:text-text-bright transition-colors">Community</a>
+      <a href="/about" class="text-text hover:text-text-bright transition-colors">About</a>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="hidden md:block">
+      <a href="/join" class="bg-primary text-background px-6 py-2 rounded font-medium hover:bg-primary/90 transition-colors">
+        Join the Movement
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-text-bright" id="mobile-menu-button">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden bg-surface border-t border-border hidden" id="mobile-menu">
+    <div class="px-4 py-4 space-y-4">
+      <a href="/projects" class="block text-text hover:text-text-bright transition-colors">Projects</a>
+      <a href="/pods" class="block text-text hover:text-text-bright transition-colors">Pods</a>
+      <a href="/community" class="block text-text hover:text-text-bright transition-colors">Community</a>
+      <a href="/about" class="block text-text hover:text-text-bright transition-colors">About</a>
+      <a href="/join" class="block bg-primary text-background px-6 py-2 rounded font-medium text-center">
+        Join the Movement
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Header background opacity on scroll
+  const header = document.getElementById('header');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-background/95');
+      header?.classList.remove('bg-background/80');
+    } else {
+      header?.classList.add('bg-background/80');
+      header?.classList.remove('bg-background/95');
+    }
+  });
+</script>

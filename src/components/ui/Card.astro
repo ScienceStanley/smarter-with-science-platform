@@ -1,0 +1,49 @@
+---
+/**
+ * Card.astro
+ * Flexible card component for project showcases and content blocks
+ * 
+ * Design specs from REQS.md:
+ * - Surface color: #1a0933 with subtle border
+ * - Hover effects: Gentle elevation and glow
+ * - Generous padding following space system
+ */
+
+export interface Props {
+  /** Card variant */
+  variant?: 'default' | 'featured' | 'compact';
+  /** Optional link URL for entire card */
+  href?: string;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { 
+  variant = 'default',
+  href,
+  class: className 
+} = Astro.props;
+
+const Component = href ? 'a' : 'div';
+
+const classes = [
+  // Base styles
+  'bg-surface border border-border rounded-lg',
+  'transition-all duration-300 ease-out',
+  // Variant styles
+  variant === 'default' && 'p-6',
+  variant === 'featured' && 'p-8 border-primary/30',
+  variant === 'compact' && 'p-4',
+  // Interactive styles (only if href is provided)
+  href && 'hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20',
+  // Custom classes
+  className
+].filter(Boolean).join(' ');
+---
+
+<Component 
+  class={classes}
+  href={href}
+>
+  <slot />
+</Component>
