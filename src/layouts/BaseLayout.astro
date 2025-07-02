@@ -10,6 +10,9 @@
  * - Analytics and performance monitoring setup
  */
 
+// Import global styles to ensure they're bundled
+import '../styles/global.css';
+
 export interface Props {
   title: string;
   description?: string;
@@ -65,11 +68,7 @@ const fullTitle = title === "Home" ? "Smarter With Science" : `${title} | Smarte
     <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   
-  <style>
-    @import '../styles/global.css';
-  </style>
-  
-  <body class="bg-background text-text font-inter antialiased">
+  <body>
     <div class="flex flex-col min-h-screen">
       <slot />
     </div>

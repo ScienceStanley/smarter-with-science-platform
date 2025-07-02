@@ -15,22 +15,24 @@
     scroll-behavior: smooth;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-weight: var(--font-semibold);
-    line-height: 1.2;
-  }
-  
-  /* Ensure proper text rendering */
   body {
+    background-color: #0a0a0a;
+    color: #e0d5ff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
   /* Focus styles for accessibility */
   *:focus-visible {
-    outline: 2px solid rgb(var(--primary));
+    outline: 2px solid #bd00ff;
     outline-offset: 2px;
   }
 }

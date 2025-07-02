@@ -6,6 +6,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://smarter-with-science-platform.vercel.app',
   integrations: [
     tailwind({
       applyBaseStyles: false, // We use our own global styles
