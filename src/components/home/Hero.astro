@@ -10,8 +10,7 @@
  * - CTA buttons with hover effects
  */
 
-import Button from '../ui/Button.astro';
-import Hexagon from '../ui/Hexagon.astro';
+import AnimatedHero from './AnimatedHero';
 ---
 
 <section class="relative section-padding-lg overflow-hidden">
@@ -28,109 +27,12 @@ import Hexagon from '../ui/Hexagon.astro';
   <!-- Background particle field -->
   <div class="particle-field" id="particle-field"></div>
   
-  <div class="container mx-auto text-center relative z-10">
-    <!-- Hero Badge -->
-    <div class="inline-flex items-center space-x-3 bg-surface/80 backdrop-blur-sm border border-border rounded-full px-6 py-3 mb-8">
-      <Hexagon size="sm" color="primary" />
-      <span class="text-sm font-medium text-text">Democratizing Research Through Community</span>
-    </div>
-    
-    <!-- Main Headline -->
-    <h1 class="font-space-grotesk text-4xl md:text-6xl lg:text-7xl font-bold text-text-bright mb-6 leading-tight">
-      Science plus 
-      <span class="gradient-text">community</span>
-      <br />equals exponential
-      <span class="gradient-text">impact</span>
-    </h1>
-    
-    <!-- Dynamic Subtitle -->
-    <div class="text-lg md:text-xl text-text mb-12 max-w-3xl mx-auto">
-      <p class="mb-4">
-        <span id="dynamic-text" class="border-r-2 border-primary"></span>
-      </p>
-      <p>
-        Join researchers, patients, advocates, and communities working together 
-        to make science more open, accessible, and impactful.
-      </p>
-    </div>
-    
-    <!-- CTA Buttons -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <Button variant="primary" size="lg" href="/join" class="w-full sm:w-auto">
-        Join the Movement
-      </Button>
-      <Button variant="secondary" size="lg" href="/projects" class="w-full sm:w-auto">
-        Explore Research
-      </Button>
-    </div>
-    
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 text-center">
-      <div>
-        <div class="text-3xl font-bold text-success">4</div>
-        <div class="text-sm text-text">Research Pods</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-success">42+</div>
-        <div class="text-sm text-text">Active Projects</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-success">1.2K</div>
-        <div class="text-sm text-text">Community Members</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-success">∞</div>
-        <div class="text-sm text-text">Potential Impact</div>
-      </div>
-    </div>
-  </div>
+  <!-- Enhanced animated hero content -->
+  <AnimatedHero client:load />
 </section>
 
 <script>
-  // Dynamic typing effect
-  const messages = [
-    "Science is too important to be left to scientists alone.",
-    "Communities are too smart to be excluded from solutions.",
-    "Open science accelerates discovery for everyone.",
-    "Your curiosity makes you a brilliant scientist."
-  ];
-  
-  let messageIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const dynamicText = document.getElementById('dynamic-text');
-  
-  function typeWriter() {
-    const currentMessage = messages[messageIndex];
-    
-    if (dynamicText) {
-      if (isDeleting) {
-        dynamicText.textContent = currentMessage.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        dynamicText.textContent = currentMessage.substring(0, charIndex + 1);
-        charIndex++;
-      }
-    }
-    
-    let typeSpeed = isDeleting ? 50 : 100;
-    
-    if (!isDeleting && charIndex === currentMessage.length) {
-      typeSpeed = 2000; // Pause at end
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      messageIndex = (messageIndex + 1) % messages.length;
-      typeSpeed = 500; // Pause before next message
-    }
-    
-    setTimeout(typeWriter, typeSpeed);
-  }
-  
-  // Start typing effect
-  typeWriter();
-  
-  // Particle field animation
+  // Particle field animation (keeping this as vanilla JS for performance)
   function createParticles() {
     const particleField = document.getElementById('particle-field');
     if (!particleField) return;
