@@ -223,7 +223,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({ className }) => {
           Join the Movement
         </motion.a>
         <motion.a
-          href="/projects"
+          href="/research"
           variants={buttonVariants}
           whileHover="hover"
           whileTap="tap"

@@ -1,0 +1,373 @@
+---
+/**
+ * Individual Blog Post Page
+ * Dynamic route for displaying individual research blog posts
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OptimizedImage from '../../components/ui/OptimizedImage.astro';
+import Button from '../../components/ui/Button.astro';
+
+// Define static paths for the blog posts
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'ocean-ai-breakthrough' } },
+    { params: { slug: 'quantum-biology-discovery' } }
+  ];
+}
+
+const { slug } = Astro.params;
+
+// Demo blog posts data
+const blogPosts = {
+  'ocean-ai-breakthrough': {
+    title: 'AI Revolutionizes Ocean Monitoring: Community Scientists Lead the Way',
+    excerpt: 'A groundbreaking collaboration between citizen scientists and AI researchers has produced the most comprehensive marine biodiversity dataset to date.',
+    content: `
+      <p>In a remarkable demonstration of community-driven science, researchers from the Ocean ViSION pod have achieved a breakthrough in marine biodiversity monitoring that promises to revolutionize our understanding of ocean ecosystems.</p>
+      
+      <p>The project, which began as a collaboration between marine biologists and AI researchers, has grown into a global network of citizen scientists using computer vision technology to identify and catalog marine species in real-time.</p>
+      
+      <h2>The Technology Behind the Breakthrough</h2>
+      
+      <p>At the heart of this innovation is a sophisticated AI system that can identify over 2,000 marine species with 96% accuracy. The system was trained on millions of images collected by community scientists around the world, creating the largest marine biodiversity dataset ever assembled.</p>
+      
+      <blockquote>
+        <p>"What makes this project unique is not just the technology, but the community behind it. We have underwater photographers, diving instructors, marine biology students, and ocean enthusiasts all contributing to our understanding of marine life." - Dr. Marina Costa, Ocean ViSION Lead</p>
+      </blockquote>
+      
+      <h2>Community Impact</h2>
+      
+      <p>The platform has already cataloged over 500,000 marine species observations across 80 countries. This data is being used by conservation organizations, government agencies, and researchers to track biodiversity trends and identify areas in need of protection.</p>
+      
+      <p>Key achievements include:</p>
+      <ul>
+        <li>Discovery of 12 previously unknown species variants</li>
+        <li>Real-time tracking of coral bleaching events</li>
+        <li>Early detection of invasive species spread</li>
+        <li>Community-driven marine protected area designation</li>
+      </ul>
+      
+      <h2>The Open Science Advantage</h2>
+      
+      <p>All data collected through the platform is made freely available to researchers worldwide through an open API. This approach has accelerated research timelines and enabled discoveries that would have taken decades using traditional methods.</p>
+      
+      <p>The project demonstrates the power of combining cutting-edge AI technology with community engagement to tackle complex environmental challenges. As ocean ecosystems face unprecedented threats from climate change and human activity, tools like these provide hope for effective conservation action.</p>
+      
+      <h2>Getting Involved</h2>
+      
+      <p>The Ocean ViSION platform is open to contributors of all skill levels. Whether you're a professional marine biologist or simply someone who loves the ocean, you can contribute by:</p>
+      
+      <ul>
+        <li>Uploading marine life photos through the mobile app</li>
+        <li>Participating in organized "BioBlitz" events</li>
+        <li>Helping to verify AI identifications</li>
+        <li>Contributing to data analysis and visualization</li>
+      </ul>
+      
+      <p>To learn more about how you can get involved, visit the Ocean ViSION project page or join our community forum.</p>
+    `,
+    author: 'Dr. Marina Costa',
+    authorRole: 'Ocean ViSION Lead',
+    authorBio: 'Dr. Costa is a marine biologist and AI researcher leading the Ocean ViSION initiative. She has published over 50 papers on marine biodiversity and computer vision applications in conservation.',
+    publishDate: '2024-01-15',
+    readTime: '8 min read',
+    category: 'Ocean Science',
+    tags: ['AI', 'Marine Biology', 'Community Science', 'Conservation'],
+    image: '/images/blog/ocean-ai-breakthrough.jpg',
+    relatedPosts: ['quantum-biology-discovery', 'community-resilience-toolkit']
+  },
+  'quantum-biology-discovery': {
+    title: 'Quantum Effects in Photosynthesis: New Understanding of Nature\'s Efficiency',
+    excerpt: 'Researchers discover how quantum coherence enables plants to achieve near-perfect energy transfer efficiency.',
+    content: `
+      <p>A groundbreaking study by the Quantum Biology pod has revealed new insights into how quantum mechanics enables the remarkable efficiency of photosynthesis, potentially paving the way for revolutionary advances in solar energy technology.</p>
+      
+      <p>The research, conducted through a collaboration between quantum physicists and biologists, demonstrates that quantum coherence allows energy to "sample" multiple pathways simultaneously, ensuring it finds the most efficient route to the reaction center.</p>
+      
+      <h2>Quantum Coherence in Living Systems</h2>
+      
+      <p>For decades, scientists have wondered how photosynthetic organisms achieve near-perfect energy transfer efficiency - often exceeding 95%. Traditional models suggested that this efficiency was achieved through optimized protein structures, but the new research reveals that quantum effects play a crucial role.</p>
+      
+      <blockquote>
+        <p>"We're seeing quantum coherence persist in biological systems at room temperature for much longer than previously thought possible. This challenges our understanding of both quantum mechanics and biology." - Dr. Quantum Chen, Lead Researcher</p>
+      </blockquote>
+      
+      <h2>Experimental Breakthrough</h2>
+      
+      <p>Using advanced spectroscopy techniques, the team observed quantum coherence lasting for several hundred femtoseconds in photosynthetic complexes. This may seem brief, but it's long enough for energy to explore multiple pathways and select the most efficient route.</p>
+      
+      <p>The key findings include:</p>
+      <ul>
+        <li>Quantum coherence persists longer in biological systems than in artificial quantum devices</li>
+        <li>Environmental noise actually helps maintain coherence rather than destroying it</li>
+        <li>Different plant species have evolved varying quantum strategies</li>
+        <li>The effect is more pronounced in low-light conditions</li>
+      </ul>
+      
+      <h2>Implications for Technology</h2>
+      
+      <p>These discoveries are already inspiring new approaches to solar cell design. By mimicking the quantum strategies found in nature, researchers hope to develop artificial photosynthetic systems that match or exceed the efficiency of biological ones.</p>
+      
+      <p>Potential applications include:</p>
+      <ul>
+        <li>Ultra-efficient quantum solar cells</li>
+        <li>Improved artificial photosynthesis for fuel production</li>
+        <li>Quantum computing architectures inspired by biology</li>
+        <li>Advanced materials for energy harvesting</li>
+      </ul>
+      
+      <h2>Community Science Contribution</h2>
+      
+      <p>This research was made possible through the distributed computing power provided by community volunteers through the rare@home network. Thousands of participants donated computational resources to simulate quantum effects in different molecular configurations.</p>
+      
+      <p>The open-source nature of the project has already led to spin-off research initiatives around the world, demonstrating the power of collaborative science in tackling complex interdisciplinary challenges.</p>
+    `,
+    author: 'Dr. Quantum Chen',
+    authorRole: 'Quantum Biology Researcher',
+    authorBio: 'Dr. Chen specializes in quantum effects in biological systems and leads the theoretical quantum biology group. His work bridges quantum physics and molecular biology.',
+    publishDate: '2024-01-12',
+    readTime: '6 min read',
+    category: 'Quantum Biology',
+    tags: ['Quantum Physics', 'Biology', 'Energy', 'Photosynthesis'],
+    image: '/images/blog/quantum-photosynthesis.jpg',
+    relatedPosts: ['ocean-ai-breakthrough', 'protein-folding-breakthrough']
+  }
+};
+
+const post = blogPosts[slug as keyof typeof blogPosts];
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const title = `${post.title} | Research Blog | Smarter with Science`;
+const description = post.excerpt;
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="min-h-screen bg-background">
+    <!-- Article Header -->
+    <article class="max-w-4xl mx-auto">
+      <!-- Hero Image -->
+      <div class="relative h-64 md:h-96 overflow-hidden">
+        <OptimizedImage
+          src={post.image}
+          alt={post.title}
+          width={1200}
+          height={600}
+          class="w-full h-full object-cover"
+          priority={true}
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent"></div>
+        
+        <!-- Article Meta Overlay -->
+        <div class="absolute bottom-0 left-0 right-0 p-lg md:p-xl">
+          <div class="max-w-3xl">
+            <!-- Category & Reading Time -->
+            <div class="flex items-center space-x-sm mb-md">
+              <span class="px-sm py-xs text-xs font-medium bg-primary text-background rounded-full">
+                {post.category}
+              </span>
+              <span class="text-sm text-text-bright">{post.readTime}</span>
+              <span class="text-sm text-text-bright">
+                {new Date(post.publishDate).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </span>
+            </div>
+            
+            <!-- Title -->
+            <h1 class="text-2xl md:text-3xl lg:text-4xl font-space-grotesk font-bold text-text-bright mb-md leading-tight">
+              {post.title}
+            </h1>
+            
+            <!-- Author Info -->
+            <div class="flex items-center space-x-sm">
+              <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                <span class="text-sm font-bold text-primary">
+                  {post.author.split(' ').map(n => n[0]).join('')}
+                </span>
+              </div>
+              <div>
+                <p class="font-medium text-text-bright">{post.author}</p>
+                <p class="text-sm text-text">{post.authorRole}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Article Content -->
+      <div class="px-lg md:px-xl py-xl">
+        <!-- Article Body -->
+        <div class="prose prose-invert prose-lg max-w-none mb-xl">
+          <div class="article-content" set:html={post.content}></div>
+        </div>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-sm mb-xl">
+          {post.tags.map(tag => (
+            <span class="px-sm py-xs text-sm bg-primary/10 text-primary rounded-full border border-primary/20">
+              #{tag}
+            </span>
+          ))}
+        </div>
+        
+        <!-- Author Bio -->
+        <div class="bg-surface/30 border border-border rounded-lg p-lg mb-xl">
+          <div class="flex items-start space-x-md">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-primary">
+                {post.author.split(' ').map(n => n[0]).join('')}
+              </span>
+            </div>
+            <div>
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">About {post.author}</h3>
+              <p class="text-sm text-success mb-sm">{post.authorRole}</p>
+              <p class="text-text text-sm leading-relaxed">{post.authorBio}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Share & Navigation -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-md border-t border-border pt-lg">
+          <div class="flex items-center space-x-sm">
+            <span class="text-sm text-text">Share this article:</span>
+            <button class="p-sm rounded-full bg-surface/50 border border-border hover:bg-primary/10 hover:border-primary/50 transition-all">
+              <svg class="w-4 h-4 text-text" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
+              </svg>
+            </button>
+            <button class="p-sm rounded-full bg-surface/50 border border-border hover:bg-primary/10 hover:border-primary/50 transition-all">
+              <svg class="w-4 h-4 text-text" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <button class="p-sm rounded-full bg-surface/50 border border-border hover:bg-primary/10 hover:border-primary/50 transition-all">
+              <svg class="w-4 h-4 text-text" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="flex items-center space-x-sm">
+            <Button variant="secondary" size="sm" href="/research">
+              ← Back to Research
+            </Button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Posts -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto max-w-6xl">
+        <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright mb-xl text-center">
+          Related Research
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-xl">
+          {post.relatedPosts.slice(0, 2).map(relatedSlug => {
+            const relatedPost = blogPosts[relatedSlug as keyof typeof blogPosts];
+            if (!relatedPost) return null;
+            
+            return (
+              <article class="bg-surface/30 border border-border rounded-lg overflow-hidden group hover:border-primary/50 transition-all duration-300">
+                <div class="relative h-48 overflow-hidden">
+                  <OptimizedImage
+                    src={relatedPost.image}
+                    alt={relatedPost.title}
+                    width={400}
+                    height={240}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                
+                <div class="p-lg">
+                  <div class="flex items-center space-x-sm mb-sm">
+                    <span class="px-sm py-xs text-xs font-medium bg-success/20 text-success rounded-full">
+                      {relatedPost.category}
+                    </span>
+                    <span class="text-sm text-text">{relatedPost.readTime}</span>
+                  </div>
+                  
+                  <h3 class="text-lg font-space-grotesk font-bold text-text-bright mb-sm group-hover:text-primary transition-colors">
+                    <a href={`/research/${relatedSlug}`}>
+                      {relatedPost.title}
+                    </a>
+                  </h3>
+                  
+                  <p class="text-text text-sm leading-relaxed mb-md">
+                    {relatedPost.excerpt}
+                  </p>
+                  
+                  <Button variant="primary" size="sm" href={`/research/${relatedSlug}`}>
+                    Read More
+                  </Button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Article content styling */
+  .article-content h2 {
+    @apply text-xl md:text-2xl font-space-grotesk font-bold text-text-bright mt-xl mb-md;
+  }
+  
+  .article-content h3 {
+    @apply text-lg md:text-xl font-space-grotesk font-bold text-text-bright mt-lg mb-sm;
+  }
+  
+  .article-content p {
+    @apply text-text leading-relaxed mb-md;
+  }
+  
+  .article-content ul, .article-content ol {
+    @apply text-text mb-md pl-lg;
+  }
+  
+  .article-content li {
+    @apply mb-xs;
+  }
+  
+  .article-content ul li {
+    @apply list-disc;
+  }
+  
+  .article-content ol li {
+    @apply list-decimal;
+  }
+  
+  .article-content blockquote {
+    @apply border-l-4 border-primary bg-primary/10 p-md my-lg italic;
+  }
+  
+  .article-content blockquote p {
+    @apply text-text-bright mb-0;
+  }
+  
+  .article-content a {
+    @apply text-primary hover:text-primary/80 transition-colors underline;
+  }
+  
+  .article-content code {
+    @apply bg-surface/50 px-xs py-1 rounded text-success font-mono text-sm;
+  }
+  
+  .article-content pre {
+    @apply bg-surface/50 p-md rounded-lg overflow-x-auto mb-md;
+  }
+  
+  .article-content pre code {
+    @apply bg-transparent p-0;
+  }
+</style>

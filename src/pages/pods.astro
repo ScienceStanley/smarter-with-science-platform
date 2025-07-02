@@ -1,10 +1,452 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
+/**
+ * Research Pods Overview Page
+ * Showcase all research pods with detailed information and project galleries
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedImage from '../components/ui/OptimizedImage.astro';
+import Button from '../components/ui/Button.astro';
+import Hexagon from '../components/ui/Hexagon.astro';
+
+// Research Pods Data
+const pods = [
+  {
+    id: 'ocean-vision',
+    name: 'Ocean ViSION',
+    tagline: 'AI-Powered Marine Conservation',
+    description: 'Combining computer vision, AI, and community science to protect our oceans through innovative monitoring and conservation technologies.',
+    longDescription: 'Ocean ViSION represents the future of marine conservation, where cutting-edge AI technology meets passionate community involvement. Our platform enables citizen scientists worldwide to contribute to the largest marine biodiversity database ever created, using computer vision to identify and track marine species in real-time.',
+    icon: '🌊',
+    pixelArt: '/images/pod-ocean-vision-pixel.svg',
+    bannerImage: '/images/pods/ocean-vision-banner.jpg',
+    color: 'primary',
+    stats: {
+      projects: 12,
+      contributors: 456,
+      discoveries: 23,
+      countries: 45
+    },
+    keyFeatures: [
+      'Real-time species identification with 96% accuracy',
+      'Global network of 500+ underwater photographers',
+      'Open dataset with 2M+ marine observations',
+      'AI-powered coral health monitoring'
+    ],
+    recentProjects: [
+      {
+        title: 'Coral Bleaching Alert System',
+        description: 'Early warning system for coral bleaching events using satellite imagery and AI.',
+        status: 'Active',
+        contributors: 23
+      },
+      {
+        title: 'Invasive Species Tracker',
+        description: 'Community-driven tracking of invasive marine species spread.',
+        status: 'Active',
+        contributors: 67
+      },
+      {
+        title: 'Marine Protected Area Optimizer',
+        description: 'Data-driven recommendations for new marine protected areas.',
+        status: 'Planning',
+        contributors: 12
+      }
+    ],
+    technologies: ['Computer Vision', 'Machine Learning', 'Mobile Apps', 'Satellite Imagery', 'Underwater Photography'],
+    impact: 'Discovered 12 new species variants and protected 50,000 hectares of marine habitat',
+    joinUrl: '/pods/ocean-vision/join',
+    learnMoreUrl: '/pods/ocean-vision'
+  },
+  {
+    id: 'ai-impact',
+    name: 'AI Impact Ventures',
+    tagline: 'Ethical AI for Social Good',
+    description: 'Developing responsible AI technologies that address humanity\'s greatest challenges while ensuring equitable access and positive social impact.',
+    longDescription: 'AI Impact Ventures is dedicated to harnessing the transformative power of artificial intelligence for the greater good. We focus on creating AI solutions that are not only technically advanced but also ethically sound, accessible, and designed to benefit all of humanity.',
+    icon: '🚀',
+    pixelArt: '/images/pod-ai-impact-pixel.svg',
+    bannerImage: '/images/pods/ai-impact-banner.jpg',
+    color: 'success',
+    stats: {
+      projects: 8,
+      contributors: 234,
+      discoveries: 15,
+      countries: 32
+    },
+    keyFeatures: [
+      'Open-source AI frameworks for social good',
+      'Bias detection and mitigation tools',
+      'Community-driven AI ethics guidelines',
+      'Educational AI literacy programs'
+    ],
+    recentProjects: [
+      {
+        title: 'Healthcare AI Accessibility',
+        description: 'Making advanced medical AI available to underserved communities.',
+        status: 'Active',
+        contributors: 34
+      },
+      {
+        title: 'Climate Prediction Models',
+        description: 'Improving local climate forecasting for agricultural planning.',
+        status: 'Active',
+        contributors: 28
+      },
+      {
+        title: 'Education Personalization Engine',
+        description: 'AI-powered learning systems adapted to individual needs.',
+        status: 'Beta',
+        contributors: 45
+      }
+    ],
+    technologies: ['Deep Learning', 'Natural Language Processing', 'Computer Vision', 'Federated Learning', 'Explainable AI'],
+    impact: 'Improved healthcare access for 100,000+ people in remote communities',
+    joinUrl: '/pods/ai-impact/join',
+    learnMoreUrl: '/pods/ai-impact'
+  },
+  {
+    id: 'quantum-bio',
+    name: 'Quantum Biology',
+    tagline: 'Quantum Mechanics Meets Life Sciences',
+    description: 'Exploring quantum effects in biological systems to unlock new frontiers in medicine, energy, and our understanding of life itself.',
+    longDescription: 'Quantum Biology investigates the fascinating intersection of quantum mechanics and biological systems. Our research reveals how quantum effects enable the remarkable efficiency of photosynthesis, navigation in animals, and potentially consciousness itself.',
+    icon: '⚛️',
+    pixelArt: '/images/pod-quantum-bio-pixel.svg',
+    bannerImage: '/images/pods/quantum-bio-banner.jpg',
+    color: 'primary',
+    stats: {
+      projects: 6,
+      contributors: 187,
+      discoveries: 9,
+      countries: 28
+    },
+    keyFeatures: [
+      'Quantum coherence in photosynthetic systems',
+      'Biomolecular quantum computing architectures',
+      'Quantum effects in neural networks',
+      'Nature-inspired quantum technologies'
+    ],
+    recentProjects: [
+      {
+        title: 'Quantum Photosynthesis Efficiency',
+        description: 'Understanding how plants achieve near-perfect energy transfer.',
+        status: 'Active',
+        contributors: 19
+      },
+      {
+        title: 'Quantum-Enhanced Drug Discovery',
+        description: 'Using quantum effects to model molecular interactions.',
+        status: 'Active',
+        contributors: 25
+      },
+      {
+        title: 'Bio-Quantum Sensors',
+        description: 'Developing ultra-sensitive biological quantum sensors.',
+        status: 'Research',
+        contributors: 14
+      }
+    ],
+    technologies: ['Quantum Computing', 'Spectroscopy', 'Molecular Dynamics', 'Biophysics', 'Quantum Optics'],
+    impact: 'Breakthrough insights into photosynthesis efficiency inspiring next-gen solar cells',
+    joinUrl: '/pods/quantum-bio/join',
+    learnMoreUrl: '/pods/quantum-bio'
+  },
+  {
+    id: 'community-resilience',
+    name: 'Community Resilience',
+    tagline: 'Local Solutions for Global Challenges',
+    description: 'Empowering communities with science and technology to build resilience against climate change, disasters, and social challenges.',
+    longDescription: 'Community Resilience focuses on bottom-up approaches to global challenges. We believe that communities closest to problems often have the best insights for solutions, and we provide them with scientific tools and support to implement these solutions.',
+    icon: '🏘️',
+    pixelArt: '/images/pod-community-resilience-pixel.svg',
+    bannerImage: '/images/pods/community-resilience-banner.jpg',
+    color: 'success',
+    stats: {
+      projects: 15,
+      contributors: 678,
+      discoveries: 31,
+      countries: 67
+    },
+    keyFeatures: [
+      'Community-driven environmental monitoring',
+      'Local disaster preparedness systems',
+      'Citizen science training programs',
+      'Open-source resilience toolkits'
+    ],
+    recentProjects: [
+      {
+        title: 'Urban Heat Island Mapping',
+        description: 'Community-generated heat maps for urban planning.',
+        status: 'Active',
+        contributors: 89
+      },
+      {
+        title: 'Flood Early Warning Network',
+        description: 'IoT sensor networks managed by local communities.',
+        status: 'Active',
+        contributors: 156
+      },
+      {
+        title: 'Community Energy Grid',
+        description: 'Peer-to-peer renewable energy sharing platform.',
+        status: 'Pilot',
+        contributors: 73
+      }
+    ],
+    technologies: ['IoT Sensors', 'Mobile Apps', 'GIS Mapping', 'Data Visualization', 'Community Networks'],
+    impact: 'Protected 200+ communities from climate-related disasters',
+    joinUrl: '/pods/community-resilience/join',
+    learnMoreUrl: '/pods/community-resilience'
+  }
+];
 ---
 
-<PageLayout title="Research Pods" description="Explore our autonomous working groups tackling humanity's greatest challenges.">
-  <section class="container mx-auto px-4 py-3xl">
-    <h1 class="text-4xl font-space-grotesk font-light text-text-bright mb-lg">Research Pods</h1>
-    <p class="text-lg text-text">Page coming soon...</p>
-  </section>
-</PageLayout>
+<BaseLayout title="Research Pods | Smarter with Science" description="Explore our autonomous research pods tackling humanity's greatest challenges through open collaboration.">
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="section-padding-lg relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-success/30"></div>
+      </div>
+      
+      <div class="container mx-auto relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold text-text-bright mb-md">
+            Research <span class="gradient-text">Pods</span>
+          </h1>
+          <p class="text-lg md:text-xl text-text mb-lg max-w-3xl mx-auto">
+            Autonomous working groups where researchers, citizens, and innovators collaborate 
+            to tackle humanity's greatest challenges through open science.
+          </p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-lg max-w-2xl mx-auto">
+            <div class="text-center">
+              <div class="text-2xl md:text-3xl font-bold text-primary">41</div>
+              <div class="text-sm text-text">Active Projects</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl md:text-3xl font-bold text-success">1,555</div>
+              <div class="text-sm text-text">Contributors</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl md:text-3xl font-bold text-primary">78</div>
+              <div class="text-sm text-text">Discoveries</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl md:text-3xl font-bold text-success">172</div>
+              <div class="text-sm text-text">Countries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pods Grid -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="space-y-3xl">
+          {pods.map((pod, index) => (
+            <article class={`pod-section ${index % 2 === 1 ? 'reverse' : ''}`}>
+              <div class="grid lg:grid-cols-2 gap-xl items-center">
+                <!-- Pod Content -->
+                <div class={`space-y-lg ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <!-- Header -->
+                  <div class="flex items-start space-x-md">
+                    <div class={`flex-shrink-0 w-16 h-16 rounded-lg flex items-center justify-center ${pod.color === 'primary' ? 'bg-primary/20' : 'bg-success/20'}`}>
+                      <span class="text-2xl">{pod.icon}</span>
+                    </div>
+                    <div>
+                      <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright">
+                        {pod.name}
+                      </h2>
+                      <p class={`text-lg font-medium ${pod.color === 'primary' ? 'text-primary' : 'text-success'}`}>
+                        {pod.tagline}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <!-- Description -->
+                  <p class="text-text leading-relaxed">
+                    {pod.longDescription}
+                  </p>
+                  
+                  <!-- Stats Grid -->
+                  <div class="grid grid-cols-2 gap-md">
+                    <div class="bg-surface/30 border border-border rounded-lg p-md text-center">
+                      <div class={`text-xl font-bold ${pod.color === 'primary' ? 'text-primary' : 'text-success'}`}>
+                        {pod.stats.projects}
+                      </div>
+                      <div class="text-sm text-text">Active Projects</div>
+                    </div>
+                    <div class="bg-surface/30 border border-border rounded-lg p-md text-center">
+                      <div class={`text-xl font-bold ${pod.color === 'primary' ? 'text-primary' : 'text-success'}`}>
+                        {pod.stats.contributors}
+                      </div>
+                      <div class="text-sm text-text">Contributors</div>
+                    </div>
+                    <div class="bg-surface/30 border border-border rounded-lg p-md text-center">
+                      <div class={`text-xl font-bold ${pod.color === 'primary' ? 'text-primary' : 'text-success'}`}>
+                        {pod.stats.discoveries}
+                      </div>
+                      <div class="text-sm text-text">Discoveries</div>
+                    </div>
+                    <div class="bg-surface/30 border border-border rounded-lg p-md text-center">
+                      <div class={`text-xl font-bold ${pod.color === 'primary' ? 'text-primary' : 'text-success'}`}>
+                        {pod.stats.countries}
+                      </div>
+                      <div class="text-sm text-text">Countries</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Key Features -->
+                  <div>
+                    <h3 class="text-lg font-space-grotesk font-bold text-text-bright mb-sm">Key Features</h3>
+                    <ul class="space-y-xs">
+                      {pod.keyFeatures.map(feature => (
+                        <li class="flex items-start space-x-sm">
+                          <div class={`w-1.5 h-1.5 rounded-full ${pod.color === 'primary' ? 'bg-primary' : 'bg-success'} mt-2 flex-shrink-0`}></div>
+                          <span class="text-text text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <!-- Impact Statement -->
+                  <div class="bg-surface/20 border border-border rounded-lg p-md">
+                    <h4 class={`text-sm font-medium ${pod.color === 'primary' ? 'text-primary' : 'text-success'} mb-xs`}>
+                      Recent Impact
+                    </h4>
+                    <p class="text-text-bright text-sm font-medium">{pod.impact}</p>
+                  </div>
+                  
+                  <!-- Action Buttons -->
+                  <div class="flex flex-col sm:flex-row gap-sm">
+                    <Button variant="primary" size="md" href={pod.learnMoreUrl}>
+                      Explore {pod.name}
+                    </Button>
+                    <Button variant="secondary" size="md" href={pod.joinUrl}>
+                      Join This Pod
+                    </Button>
+                  </div>
+                </div>
+                
+                <!-- Pod Visual -->
+                <div class={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <div class="relative">
+                    <!-- Pixel Art Character -->
+                    <div class="relative z-10 max-w-md mx-auto">
+                      <OptimizedImage
+                        src={pod.pixelArt}
+                        alt={`${pod.name} pixel art`}
+                        width={400}
+                        height={400}
+                        class="w-full h-auto"
+                        pixelArt={true}
+                      />
+                    </div>
+                    
+                    <!-- Background Effect -->
+                    <div class={`absolute inset-0 ${pod.color === 'primary' ? 'bg-primary/10' : 'bg-success/10'} rounded-full blur-3xl scale-75`}></div>
+                  </div>
+                  
+                  <!-- Recent Projects -->
+                  <div class="mt-lg">
+                    <h3 class="text-lg font-space-grotesk font-bold text-text-bright mb-md">
+                      Recent Projects
+                    </h3>
+                    <div class="space-y-sm">
+                      {pod.recentProjects.slice(0, 3).map(project => (
+                        <div class="bg-surface/20 border border-border rounded-lg p-md">
+                          <div class="flex items-start justify-between mb-xs">
+                            <h4 class="font-medium text-text-bright text-sm">{project.title}</h4>
+                            <span class={`px-xs py-1 text-xs rounded-full ${
+                              project.status === 'Active' ? 'bg-success/20 text-success' :
+                              project.status === 'Beta' ? 'bg-primary/20 text-primary' :
+                              'bg-surface/50 text-text'
+                            }`}>
+                              {project.status}
+                            </span>
+                          </div>
+                          <p class="text-text text-xs leading-relaxed mb-xs">
+                            {project.description}
+                          </p>
+                          <p class="text-xs text-text">
+                            {project.contributors} contributors
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Join Section -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright mb-md">
+            Ready to Make an Impact?
+          </h2>
+          <p class="text-text mb-lg">
+            Join thousands of researchers, students, professionals, and curious minds 
+            working together to solve humanity's greatest challenges.
+          </p>
+          
+          <div class="grid md:grid-cols-3 gap-lg mb-lg">
+            <div class="text-center">
+              <Hexagon size="lg" color="primary" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Choose Your Pod</h3>
+              <p class="text-sm text-text">Pick the research area that excites you most</p>
+            </div>
+            <div class="text-center">
+              <Hexagon size="lg" color="success" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Start Contributing</h3>
+              <p class="text-sm text-text">Begin with small tasks and grow your impact</p>
+            </div>
+            <div class="text-center">
+              <Hexagon size="lg" color="primary" class="mx-auto mb-sm" />
+              <h3 class="font-space-grotesk font-bold text-text-bright mb-xs">Build Community</h3>
+              <p class="text-sm text-text">Connect with like-minded researchers worldwide</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-sm justify-center">
+            <Button variant="primary" size="lg" href="/join">
+              Join the Movement
+            </Button>
+            <Button variant="secondary" size="lg" href="/community">
+              Explore Community
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .pod-section {
+    @apply relative;
+  }
+  
+  .pod-section::before {
+    @apply absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-success to-primary opacity-30 content-[''];
+  }
+  
+  .pod-section.reverse::before {
+    @apply right-0 left-auto;
+  }
+  
+  @media (min-width: 1024px) {
+    .pod-section::before {
+      @apply hidden;
+    }
+  }
+</style>

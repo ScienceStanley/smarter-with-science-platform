@@ -296,7 +296,7 @@ const AnimatedMetricsSection: React.FC = () => {
           animate={controls}
           className="grid grid-cols-2 lg:grid-cols-4 gap-lg max-w-6xl mx-auto"
         >
-          {metrics.map((metric, index) => {
+          {metrics.map((metric) => {
             const IconComponent = metric.icon;
             const colors = getColorClasses(metric.color);
             

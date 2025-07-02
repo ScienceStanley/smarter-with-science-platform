@@ -1,0 +1,379 @@
+---
+/**
+ * Research Blog Index
+ * Main landing page for the research blog with latest posts
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OptimizedImage from '../../components/ui/OptimizedImage.astro';
+import Button from '../../components/ui/Button.astro';
+
+// Demo blog posts - in production these would come from a CMS or markdown files
+const blogPosts = [
+  {
+    slug: 'ocean-ai-breakthrough',
+    title: 'AI Revolutionizes Ocean Monitoring: Community Scientists Lead the Way',
+    excerpt: 'A groundbreaking collaboration between citizen scientists and AI researchers has produced the most comprehensive marine biodiversity dataset to date.',
+    author: 'Dr. Marina Costa',
+    authorRole: 'Ocean ViSION Lead',
+    publishDate: '2024-01-15',
+    readTime: '8 min read',
+    category: 'Ocean Science',
+    tags: ['AI', 'Marine Biology', 'Community Science'],
+    featured: true,
+    image: '/images/blog/ocean-ai-breakthrough.jpg'
+  },
+  {
+    slug: 'quantum-biology-discovery',
+    title: 'Quantum Effects in Photosynthesis: New Understanding of Nature\'s Efficiency',
+    excerpt: 'Researchers discover how quantum coherence enables plants to achieve near-perfect energy transfer efficiency.',
+    author: 'Dr. Quantum Chen',
+    authorRole: 'Quantum Biology Researcher',
+    publishDate: '2024-01-12',
+    readTime: '6 min read',
+    category: 'Quantum Biology',
+    tags: ['Quantum Physics', 'Biology', 'Energy'],
+    featured: false,
+    image: '/images/blog/quantum-photosynthesis.jpg'
+  },
+  {
+    slug: 'community-resilience-toolkit',
+    title: 'Open Source Toolkit Empowers Communities in Climate Adaptation',
+    excerpt: 'A new platform provides communities with AI-powered tools to assess and adapt to climate risks.',
+    author: 'Sarah Martinez',
+    authorRole: 'Community Technology Coordinator',
+    publishDate: '2024-01-10',
+    readTime: '5 min read',
+    category: 'Community Science',
+    tags: ['Climate', 'Open Source', 'Community'],
+    featured: false,
+    image: '/images/blog/community-toolkit.jpg'
+  },
+  {
+    slug: 'protein-folding-breakthrough',
+    title: 'Distributed Computing Network Solves Rare Disease Protein Structure',
+    excerpt: 'The rare@home network achieves a major breakthrough in understanding protein misfolding diseases.',
+    author: 'Dr. Alex Rivera',
+    authorRole: 'Computational Biology Lead',
+    publishDate: '2024-01-08',
+    readTime: '7 min read',
+    category: 'Computational Biology',
+    tags: ['Protein Folding', 'Rare Diseases', 'Computing'],
+    featured: false,
+    image: '/images/blog/protein-folding.jpg'
+  },
+  {
+    slug: 'citizen-science-impact',
+    title: 'How Citizen Scientists Are Accelerating Research Discovery',
+    excerpt: 'A comprehensive look at the growing impact of community-driven research initiatives.',
+    author: 'Dr. Emma Thompson',
+    authorRole: 'Community Science Director',
+    publishDate: '2024-01-05',
+    readTime: '9 min read',
+    category: 'Community Science',
+    tags: ['Citizen Science', 'Research', 'Impact'],
+    featured: false,
+    image: '/images/blog/citizen-science.jpg'
+  }
+];
+
+const categories = ['All', 'Ocean Science', 'Quantum Biology', 'Community Science', 'Computational Biology', 'AI Impact'];
+const featuredPost = blogPosts.find(post => post.featured);
+const regularPosts = blogPosts.filter(post => !post.featured);
+---
+
+<BaseLayout title="Research Blog | Smarter with Science" description="Latest research discoveries, breakthroughs, and insights from our community of scientists and researchers.">
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="section-padding-lg relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-success/30"></div>
+      </div>
+      
+      <div class="container mx-auto relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold text-text-bright mb-md">
+            Research <span class="gradient-text">Discoveries</span>
+          </h1>
+          <p class="text-lg md:text-xl text-text mb-lg max-w-3xl mx-auto">
+            Explore the latest breakthroughs, insights, and discoveries from our global community 
+            of researchers, citizen scientists, and innovators.
+          </p>
+          
+          <!-- Category Filter -->
+          <div class="flex flex-wrap justify-center gap-sm">
+            {categories.map(category => (
+              <button class="category-filter px-md py-sm text-sm font-medium rounded-full border border-border bg-surface/50 text-text hover:bg-primary/10 hover:border-primary/50 transition-all duration-200">
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Post -->
+    {featuredPost && (
+      <section class="section-padding">
+        <div class="container mx-auto">
+          <div class="text-center mb-xl">
+            <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright mb-sm">
+              Featured Research
+            </h2>
+            <p class="text-text">Our most impactful discovery this month</p>
+          </div>
+          
+          <article class="featured-post bg-surface/30 border border-border rounded-lg overflow-hidden max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-0">
+              <!-- Featured Image -->
+              <div class="relative h-64 md:h-full">
+                <OptimizedImage
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  width={600}
+                  height={400}
+                  class="w-full h-full object-cover"
+                  priority={true}
+                />
+                <div class="absolute top-md left-md">
+                  <span class="px-sm py-xs text-xs font-medium bg-primary text-background rounded-full">
+                    Featured
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Content -->
+              <div class="p-xl">
+                <div class="flex items-center space-x-sm mb-md">
+                  <span class="px-sm py-xs text-xs font-medium bg-success/20 text-success rounded-full">
+                    {featuredPost.category}
+                  </span>
+                  <span class="text-sm text-text">{featuredPost.readTime}</span>
+                </div>
+                
+                <h3 class="text-xl md:text-2xl font-space-grotesk font-bold text-text-bright mb-sm">
+                  <a href={`/research/${featuredPost.slug}`} class="hover:text-primary transition-colors">
+                    {featuredPost.title}
+                  </a>
+                </h3>
+                
+                <p class="text-text mb-md leading-relaxed">
+                  {featuredPost.excerpt}
+                </p>
+                
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-sm">
+                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                      <span class="text-xs font-bold text-primary">
+                        {featuredPost.author.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-text-bright">{featuredPost.author}</p>
+                      <p class="text-xs text-text">{featuredPost.authorRole}</p>
+                    </div>
+                  </div>
+                  
+                  <Button variant="primary" size="sm" href={`/research/${featuredPost.slug}`}>
+                    Read More
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    )}
+
+    <!-- Latest Posts Grid -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-xl">
+          <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright mb-sm">
+            Latest Research
+          </h2>
+          <p class="text-text">Stay up to date with ongoing discoveries</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-xl">
+          {regularPosts.map((post) => (
+            <article class="blog-card bg-surface/30 border border-border rounded-lg overflow-hidden group hover:border-primary/50 transition-all duration-300">
+              <!-- Post Image -->
+              <div class="relative h-48 overflow-hidden">
+                <OptimizedImage
+                  src={post.image}
+                  alt={post.title}
+                  width={400}
+                  height={240}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div class="absolute top-md left-md">
+                  <span class="px-sm py-xs text-xs font-medium bg-surface/80 backdrop-blur-sm border border-border rounded-full text-text">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Post Content -->
+              <div class="p-lg">
+                <div class="flex items-center justify-between text-sm text-text mb-sm">
+                  <time datetime={post.publishDate}>
+                    {new Date(post.publishDate).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </time>
+                  <span>{post.readTime}</span>
+                </div>
+                
+                <h3 class="text-lg font-space-grotesk font-bold text-text-bright mb-sm group-hover:text-primary transition-colors">
+                  <a href={`/research/${post.slug}`}>
+                    {post.title}
+                  </a>
+                </h3>
+                
+                <p class="text-text text-sm leading-relaxed mb-md">
+                  {post.excerpt}
+                </p>
+                
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-xs mb-md">
+                  {post.tags.map(tag => (
+                    <span class="px-xs py-1 text-xs bg-primary/10 text-primary rounded">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                
+                <!-- Author -->
+                <div class="flex items-center space-x-sm">
+                  <div class="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center">
+                    <span class="text-xs font-bold text-success">
+                      {post.author.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div>
+                    <p class="text-xs font-medium text-text-bright">{post.author}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        
+        <!-- Load More -->
+        <div class="text-center mt-xl">
+          <Button variant="secondary" size="lg">
+            Load More Posts
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="section-padding bg-surface/20">
+      <div class="container mx-auto">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold text-text-bright mb-sm">
+            Stay Updated
+          </h2>
+          <p class="text-text mb-lg">
+            Get the latest research discoveries and breakthrough announcements delivered to your inbox.
+          </p>
+          
+          <form class="flex flex-col sm:flex-row gap-sm max-w-md mx-auto">
+            <input 
+              type="email" 
+              placeholder="Enter your email"
+              class="flex-1 px-md py-sm rounded border border-border bg-surface/50 text-text placeholder-text/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              required
+            />
+            <Button variant="primary">
+              Subscribe
+            </Button>
+          </form>
+          
+          <p class="text-xs text-text mt-sm">
+            No spam, unsubscribe at any time. By subscribing, you agree to our privacy policy.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .category-filter.active {
+    @apply bg-primary text-background border-primary;
+  }
+  
+  .blog-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .blog-card:nth-child(1) { animation-delay: 0.1s; }
+  .blog-card:nth-child(2) { animation-delay: 0.2s; }
+  .blog-card:nth-child(3) { animation-delay: 0.3s; }
+  .blog-card:nth-child(4) { animation-delay: 0.4s; }
+  .blog-card:nth-child(5) { animation-delay: 0.5s; }
+  .blog-card:nth-child(6) { animation-delay: 0.6s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .blog-card {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  // Category filtering functionality
+  function initializeBlogFilters() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.textContent?.trim();
+        
+        // Update active state
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Filter posts
+        blogCards.forEach(card => {
+          const htmlCard = card as HTMLElement;
+          const postCategory = htmlCard.querySelector('.bg-surface\\/80')?.textContent?.trim();
+          
+          if (category === 'All' || postCategory === category) {
+            htmlCard.style.display = 'block';
+          } else {
+            htmlCard.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Set initial active state
+    if (filterButtons.length > 0) {
+      filterButtons[0].classList.add('active');
+    }
+  }
+  
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initializeBlogFilters);
+</script>

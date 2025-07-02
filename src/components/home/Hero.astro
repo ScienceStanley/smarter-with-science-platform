@@ -11,16 +11,21 @@
  */
 
 import AnimatedHero from './AnimatedHero';
+import OptimizedImage from '../ui/OptimizedImage.astro';
 ---
 
 <section class="relative section-padding-lg overflow-hidden">
   <!-- Pixel art banner background -->
   <div class="absolute inset-0 opacity-30">
-    <img 
-      src="/images/hero-banner-pixel.svg" 
-      alt="Pixel art galaxy background" 
+    <OptimizedImage
+      src="/images/hero-banner-pixel.svg"
+      alt="Pixel art galaxy background"
+      width={1200}
+      height={400}
       class="w-full h-full object-cover"
-      style="image-rendering: pixelated;"
+      pixelArt={true}
+      priority={true}
+      loading="eager"
     />
   </div>
   
