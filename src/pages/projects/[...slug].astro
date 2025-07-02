@@ -1,0 +1,275 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hexagon from '../../components/ui/Hexagon.astro';
+import Button from '../../components/ui/Button.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+// Get related projects from same pod
+const allProjects = await getCollection('projects');
+const relatedProjects = allProjects
+  .filter(p => p.data.pod.name === project.data.pod.name && p.slug !== project.slug)
+  .slice(0, 3);
+
+// Format date
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+};
+---
+
+<PageLayout 
+  title={`${project.data.title} | Smarter With Science`}
+  description={project.data.description}
+  image={project.data.image}
+>
+  <!-- Hero Section -->
+  <section class="bg-surface/30 py-xl border-b border-border">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-text mb-6">
+          <a href="/" class="hover:text-text-bright transition-colors">Home</a>
+          <span>/</span>
+          <a href="/projects" class="hover:text-text-bright transition-colors">Projects</a>
+          <span>/</span>
+          <span class="text-text-bright">{project.data.title}</span>
+        </nav>
+
+        <!-- Pod and Status -->
+        <div class="flex items-center gap-4 mb-6">
+          <div class="flex items-center gap-2">
+            <Hexagon size="sm" color="primary">
+              <span class="text-lg">{project.data.pod.icon}</span>
+            </Hexagon>
+            <span class="text-sm font-medium text-text">{project.data.pod.name}</span>
+          </div>
+          <span class={`text-xs px-3 py-1 rounded-full border ${
+            project.data.status === 'active' ? 'text-success border-success' :
+            project.data.status === 'completed' ? 'text-text border-text' :
+            'text-text/50 border-text/50'
+          }`}>
+            {project.data.status}
+          </span>
+        </div>
+
+        <!-- Title and Description -->
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-space-grotesk font-light text-text-bright mb-6">
+          {project.data.title}
+        </h1>
+        <p class="text-lg text-text mb-8 leading-relaxed">
+          {project.data.description}
+        </p>
+
+        <!-- Meta Information -->
+        <div class="flex flex-wrap gap-6 text-sm text-text">
+          <div>
+            <span class="text-text/70">Started:</span>
+            <span class="ml-2">{formatDate(project.data.startDate)}</span>
+          </div>
+          <div>
+            <span class="text-text/70">Last Updated:</span>
+            <span class="ml-2">{formatDate(project.data.lastUpdated)}</span>
+          </div>
+          <div>
+            <span class="text-text/70">Contributors:</span>
+            <span class="ml-2">{project.data.contributors.length}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="bg-background py-6 border-b border-border sticky top-20 z-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto flex flex-wrap gap-4">
+        {project.data.github && (
+          <Button variant="secondary" size="sm" href={project.data.github} class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            View on GitHub
+          </Button>
+        )}
+        {project.data.website && (
+          <Button variant="secondary" size="sm" href={project.data.website} class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            Visit Website
+          </Button>
+        )}
+        <Button variant="primary" size="sm" href="/contribute">
+          Contribute to This Project
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="container mx-auto px-4 py-2xl">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+        <!-- Content Column -->
+        <div class="lg:col-span-2">
+          <div class="prose prose-invert prose-purple max-w-none">
+            <Content />
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="space-y-8">
+          <!-- Technologies -->
+          <div class="bg-surface/30 border border-border rounded-lg p-6">
+            <h3 class="text-lg font-space-grotesk font-medium text-text-bright mb-4">Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              {project.data.technologies.map(tech => (
+                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Contributors -->
+          <div class="bg-surface/30 border border-border rounded-lg p-6">
+            <h3 class="text-lg font-space-grotesk font-medium text-text-bright mb-4">Contributors</h3>
+            <ul class="space-y-2">
+              {project.data.contributors.map(contributor => (
+                <li class="text-sm text-text">
+                  {contributor}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Tags -->
+          <div class="bg-surface/30 border border-border rounded-lg p-6">
+            <h3 class="text-lg font-space-grotesk font-medium text-text-bright mb-4">Topics</h3>
+            <div class="flex flex-wrap gap-2">
+              {project.data.tags.map(tag => (
+                <a 
+                  href={`/projects?tag=${tag}`}
+                  class="text-xs px-2 py-1 border border-border rounded hover:border-primary hover:text-primary transition-colors"
+                >
+                  #{tag}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Get Involved -->
+          <div class="bg-primary/10 border border-primary/30 rounded-lg p-6">
+            <h3 class="text-lg font-space-grotesk font-medium text-text-bright mb-4">Get Involved</h3>
+            <p class="text-sm text-text mb-4">
+              Want to contribute to this project? We welcome researchers, developers, and community members.
+            </p>
+            <Button variant="primary" size="sm" href="/contribute" class="w-full justify-center">
+              Learn How to Contribute
+            </Button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Projects -->
+  {relatedProjects.length > 0 && (
+    <section class="bg-surface/30 py-2xl">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-2xl font-space-grotesk font-light text-text-bright mb-lg">
+            More from {project.data.pod.name}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            {relatedProjects.map(relatedProject => (
+              <a 
+                href={`/projects/${relatedProject.slug}`}
+                class="group block bg-background/50 border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300"
+              >
+                <h3 class="text-lg font-medium text-text-bright mb-2 group-hover:text-primary transition-colors">
+                  {relatedProject.data.title}
+                </h3>
+                <p class="text-sm text-text line-clamp-2">
+                  {relatedProject.data.description}
+                </p>
+                <div class="mt-4 flex items-center text-primary">
+                  <span class="text-sm">Learn more</span>
+                  <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+</PageLayout>
+
+<style>
+  /* Line clamp utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Prose customization */
+  .prose h2 {
+    @apply text-2xl font-space-grotesk font-light text-text-bright mt-12 mb-6;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-space-grotesk font-medium text-text-bright mt-8 mb-4;
+  }
+  
+  .prose p {
+    @apply text-text leading-relaxed mb-6;
+  }
+  
+  .prose a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside space-y-2 text-text;
+  }
+  
+  .prose ol {
+    @apply list-decimal list-inside space-y-2 text-text;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-6 py-2 my-6 text-text italic;
+  }
+  
+  .prose code {
+    @apply bg-surface px-2 py-1 rounded text-sm text-primary;
+  }
+  
+  .prose pre {
+    @apply bg-surface border border-border rounded-lg p-6 overflow-x-auto;
+  }
+</style>

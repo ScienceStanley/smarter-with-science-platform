@@ -10,6 +10,14 @@
  */
 
 import Hexagon from '../ui/Hexagon.astro';
+import MobileMenu from './MobileMenu.astro';
+
+const navItems = [
+  { label: 'About', href: '/about' },
+  { label: 'Pods', href: '/pods' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Community', href: '/community' },
+];
 ---
 
 <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-all duration-300" id="header">
@@ -22,10 +30,11 @@ import Hexagon from '../ui/Hexagon.astro';
 
     <!-- Desktop Navigation -->
     <div class="hidden md:flex items-center space-x-8">
-      <a href="/projects" class="text-text hover:text-text-bright transition-colors">Projects</a>
-      <a href="/pods" class="text-text hover:text-text-bright transition-colors">Pods</a>
-      <a href="/community" class="text-text hover:text-text-bright transition-colors">Community</a>
-      <a href="/about" class="text-text hover:text-text-bright transition-colors">About</a>
+      {navItems.map((item) => (
+        <a href={item.href} class="text-text hover:text-text-bright transition-colors">
+          {item.label}
+        </a>
+      ))}
     </div>
 
     <!-- CTA Button -->
@@ -35,37 +44,12 @@ import Hexagon from '../ui/Hexagon.astro';
       </a>
     </div>
 
-    <!-- Mobile Menu Button -->
-    <button class="md:hidden text-text-bright" id="mobile-menu-button">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
+    <!-- Mobile Menu -->
+    <MobileMenu items={navItems} class="md:hidden" />
   </nav>
-
-  <!-- Mobile Menu -->
-  <div class="md:hidden bg-surface border-t border-border hidden" id="mobile-menu">
-    <div class="px-4 py-4 space-y-4">
-      <a href="/projects" class="block text-text hover:text-text-bright transition-colors">Projects</a>
-      <a href="/pods" class="block text-text hover:text-text-bright transition-colors">Pods</a>
-      <a href="/community" class="block text-text hover:text-text-bright transition-colors">Community</a>
-      <a href="/about" class="block text-text hover:text-text-bright transition-colors">About</a>
-      <a href="/join" class="block bg-primary text-background px-6 py-2 rounded font-medium text-center">
-        Join the Movement
-      </a>
-    </div>
-  </div>
 </header>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
-
   // Header background opacity on scroll
   const header = document.getElementById('header');
   

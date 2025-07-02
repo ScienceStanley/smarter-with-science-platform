@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import Hexagon from '../components/ui/Hexagon.astro';
+---
+
+<BaseLayout title="404 - Page Not Found" description="The page you're looking for doesn't exist.">
+  <Header />
+  
+  <main class="flex-1 flex items-center justify-center px-4 py-3xl">
+    <div class="text-center max-w-2xl mx-auto">
+      <!-- 404 Animation -->
+      <div class="relative mb-xl">
+        <div class="flex items-center justify-center gap-4">
+          <!-- 4 -->
+          <div class="relative">
+            <Hexagon size="xl" color="outline" class="animate-float">
+              <span class="text-5xl font-bold text-primary">4</span>
+            </Hexagon>
+          </div>
+          
+          <!-- 0 -->
+          <div class="relative" style="animation-delay: 0.2s;">
+            <Hexagon size="xl" color="primary" class="animate-float">
+              <span class="text-5xl font-bold text-background">0</span>
+            </Hexagon>
+          </div>
+          
+          <!-- 4 -->
+          <div class="relative" style="animation-delay: 0.4s;">
+            <Hexagon size="xl" color="outline" class="animate-float">
+              <span class="text-5xl font-bold text-primary">4</span>
+            </Hexagon>
+          </div>
+        </div>
+        
+        <!-- Particle decoration -->
+        <div class="absolute inset-0 pointer-events-none">
+          <div class="absolute top-0 left-1/4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+          <div class="absolute bottom-0 right-1/4 w-2 h-2 bg-success rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+          <div class="absolute top-1/2 left-0 w-2 h-2 bg-primary rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+          <div class="absolute top-1/4 right-0 w-2 h-2 bg-success rounded-full animate-pulse" style="animation-delay: 1.5s;"></div>
+        </div>
+      </div>
+      
+      <!-- Message -->
+      <h1 class="text-3xl md:text-4xl font-space-grotesk font-light text-text-bright mb-md">
+        Lost in the Quantum Realm
+      </h1>
+      
+      <p class="text-lg text-text mb-xl leading-relaxed">
+        Looks like this page got entangled with another dimension. 
+        Don't worry, even Einstein got lost sometimes.
+      </p>
+      
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Button variant="primary" href="/">
+          Return to Home
+        </Button>
+        <Button variant="secondary" href="/projects">
+          Explore Projects
+        </Button>
+      </div>
+      
+      <!-- Helpful Links -->
+      <div class="mt-2xl pt-xl border-t border-border">
+        <p class="text-sm text-text mb-md">Here are some helpful links:</p>
+        <div class="flex flex-wrap gap-4 justify-center text-sm">
+          <a href="/about" class="text-primary hover:text-primary/80 transition-colors">About SwS</a>
+          <span class="text-text/30">•</span>
+          <a href="/pods" class="text-primary hover:text-primary/80 transition-colors">Research Pods</a>
+          <span class="text-text/30">•</span>
+          <a href="/community" class="text-primary hover:text-primary/80 transition-colors">Community</a>
+          <span class="text-text/30">•</span>
+          <a href="/contact" class="text-primary hover:text-primary/80 transition-colors">Contact</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(180deg);
+    }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float {
+      animation: none;
+    }
+  }
+</style>
