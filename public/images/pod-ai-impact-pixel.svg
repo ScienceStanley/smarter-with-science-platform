@@ -1,0 +1,225 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <defs>
+    <!-- AI glow gradient -->
+    <radialGradient id="aiGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#bd00ff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#bd00ff" stop-opacity="0.2"/>
+    </radialGradient>
+    
+    <!-- Neural network gradient -->
+    <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff88"/>
+      <stop offset="50%" stop-color="#bd00ff"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0a0a0a"/>
+  
+  <!-- Lab floor -->
+  <rect x="0" y="350" width="400" height="50" fill="#1a1a1a"/>
+  
+  <!-- Futuristic lab setup -->
+  <rect x="30" y="250" width="340" height="100" fill="#1a1a1a" stroke="#bd00ff" stroke-width="2"/>
+  
+  <!-- Scientist character (center) -->
+  <!-- Head -->
+  <rect x="180" y="160" width="40" height="40" fill="#e0d5ff"/>
+  <!-- Hair with tech implant -->
+  <rect x="180" y="160" width="40" height="12" fill="#bd00ff"/>
+  <rect x="205" y="165" width="8" height="6" fill="#00ff88"/> <!-- Tech implant -->
+  
+  <!-- Lab coat -->
+  <rect x="160" y="200" width="80" height="80" fill="#e0d5ff"/>
+  <!-- AI badge on coat -->
+  <rect x="190" y="220" width="20" height="15" fill="#bd00ff"/>
+  <rect x="192" y="222" width="16" height="11" fill="#0a0a0a"/>
+  <text x="200" y="230" fill="#00ff88" font-size="8" text-anchor="middle">AI</text>
+  
+  <!-- Arms -->
+  <rect x="140" y="220" width="20" height="40" fill="#e0d5ff"/>
+  <rect x="240" y="220" width="20" height="40" fill="#e0d5ff"/>
+  
+  <!-- Hands holding AI tablet -->
+  <rect x="140" y="260" width="12" height="12" fill="#e0d5ff"/>
+  <rect x="155" y="255" width="30" height="20" fill="#1a1a1a"/> <!-- Tablet -->
+  <rect x="157" y="257" width="26" height="16" fill="#bd00ff"/> <!-- Screen -->
+  
+  <!-- Neural network on tablet screen -->
+  <g transform="translate(159, 259)">
+    <circle cx="3" cy="3" r="1" fill="#00ff88"/>
+    <circle cx="11" cy="2" r="1" fill="#00ff88"/>
+    <circle cx="19" cy="4" r="1" fill="#00ff88"/>
+    <circle cx="7" cy="8" r="1" fill="#e0d5ff"/>
+    <circle cx="15" cy="9" r="1" fill="#e0d5ff"/>
+    <circle cx="11" cy="12" r="1" fill="#bd00ff"/>
+    <!-- Connections -->
+    <line x1="3" y1="3" x2="7" y2="8" stroke="#00ff88" stroke-width="0.5"/>
+    <line x1="11" y1="2" x2="7" y2="8" stroke="#00ff88" stroke-width="0.5"/>
+    <line x1="19" y1="4" x2="15" y2="9" stroke="#00ff88" stroke-width="0.5"/>
+    <line x1="7" y1="8" x2="11" y2="12" stroke="#e0d5ff" stroke-width="0.5"/>
+    <line x1="15" y1="9" x2="11" y2="12" stroke="#e0d5ff" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Legs -->
+  <rect x="175" y="280" width="20" height="30" fill="#1a1a1a"/>
+  <rect x="205" y="280" width="20" height="30" fill="#1a1a1a"/>
+  
+  <!-- Safety glasses/VR headset -->
+  <rect x="185" y="170" width="30" height="12" fill="#1a1a1a" stroke="#bd00ff" stroke-width="1"/>
+  
+  <!-- Holographic AI neural network display (large) -->
+  <g transform="translate(80, 80)">
+    <!-- Hologram border -->
+    <rect x="0" y="0" width="120" height="80" fill="none" stroke="#bd00ff" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+    
+    <!-- Neural network nodes -->
+    <!-- Input layer -->
+    <circle cx="15" cy="20" r="4" fill="#00ff88" opacity="0.8"/>
+    <circle cx="15" cy="40" r="4" fill="#00ff88" opacity="0.8"/>
+    <circle cx="15" cy="60" r="4" fill="#00ff88" opacity="0.8"/>
+    
+    <!-- Hidden layer 1 -->
+    <circle cx="45" cy="15" r="4" fill="#bd00ff" opacity="0.7"/>
+    <circle cx="45" cy="30" r="4" fill="#bd00ff" opacity="0.7"/>
+    <circle cx="45" cy="45" r="4" fill="#bd00ff" opacity="0.7"/>
+    <circle cx="45" cy="65" r="4" fill="#bd00ff" opacity="0.7"/>
+    
+    <!-- Hidden layer 2 -->
+    <circle cx="75" cy="20" r="4" fill="#e0d5ff" opacity="0.8"/>
+    <circle cx="75" cy="40" r="4" fill="#e0d5ff" opacity="0.8"/>
+    <circle cx="75" cy="60" r="4" fill="#e0d5ff" opacity="0.8"/>
+    
+    <!-- Output layer -->
+    <circle cx="105" cy="30" r="4" fill="#00ff88" opacity="0.9"/>
+    <circle cx="105" cy="50" r="4" fill="#00ff88" opacity="0.9"/>
+    
+    <!-- Connections (simplified) -->
+    <line x1="19" y1="20" x2="41" y2="15" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+    <line x1="19" y1="40" x2="41" y2="30" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+    <line x1="19" y1="60" x2="41" y2="45" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+    
+    <line x1="49" y1="15" x2="71" y2="20" stroke="#bd00ff" stroke-width="1" opacity="0.5"/>
+    <line x1="49" y1="30" x2="71" y2="40" stroke="#bd00ff" stroke-width="1" opacity="0.5"/>
+    <line x1="49" y1="45" x2="71" y2="60" stroke="#bd00ff" stroke-width="1" opacity="0.5"/>
+    
+    <line x1="79" y1="20" x2="101" y2="30" stroke="#e0d5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="79" y1="40" x2="101" y2="50" stroke="#e0d5ff" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- AI Ethics visualization -->
+  <g transform="translate(250, 100)">
+    <!-- Ethics balance -->
+    <rect x="20" y="40" width="40" height="4" fill="#e0d5ff"/> <!-- Balance beam -->
+    <rect x="38" y="30" width="4" height="20" fill="#1a1a1a"/> <!-- Support -->
+    
+    <!-- Left side - Benefits -->
+    <rect x="5" y="35" width="20" height="10" fill="#00ff88" opacity="0.7"/>
+    <text x="15" y="42" fill="#0a0a0a" font-size="6" text-anchor="middle">+</text>
+    
+    <!-- Right side - Risks -->
+    <rect x="55" y="35" width="20" height="10" fill="#bd00ff" opacity="0.7"/>
+    <text x="65" y="42" fill="#e0d5ff" font-size="6" text-anchor="middle">?</text>
+    
+    <!-- Labels -->
+    <text x="15" y="55" fill="#00ff88" font-size="8" text-anchor="middle">Good</text>
+    <text x="65" y="55" fill="#bd00ff" font-size="8" text-anchor="middle">Risk</text>
+  </g>
+  
+  <!-- Robot assistant -->
+  <g transform="translate(320, 200)">
+    <!-- Robot head -->
+    <rect x="0" y="0" width="20" height="20" fill="#1a1a1a" stroke="#bd00ff" stroke-width="1"/>
+    <!-- Eyes -->
+    <rect x="4" y="6" width="4" height="4" fill="#00ff88"/>
+    <rect x="12" y="6" width="4" height="4" fill="#00ff88"/>
+    <!-- Body -->
+    <rect x="2" y="20" width="16" height="25" fill="#1a1a1a" stroke="#bd00ff" stroke-width="1"/>
+    <!-- Arms -->
+    <rect x="-3" y="25" width="8" height="3" fill="#bd00ff"/>
+    <rect x="15" y="25" width="8" height="3" fill="#bd00ff"/>
+    <!-- Legs -->
+    <rect x="4" y="45" width="5" height="15" fill="#1a1a1a"/>
+    <rect x="11" y="45" width="5" height="15" fill="#1a1a1a"/>
+    
+    <!-- Status light -->
+    <circle cx="10" cy="30" r="2" fill="#00ff88">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Computer terminals -->
+  <!-- Terminal 1 - Code editor -->
+  <rect x="40" y="270" width="80" height="60" fill="#1a1a1a" stroke="#00ff88" stroke-width="2"/>
+  <rect x="50" y="280" width="60" height="40" fill="#0a0a0a"/>
+  
+  <!-- Code on screen -->
+  <g transform="translate(55, 285)">
+    <rect x="0" y="0" width="25" height="2" fill="#00ff88" opacity="0.8"/>
+    <rect x="0" y="5" width="35" height="2" fill="#bd00ff" opacity="0.8"/>
+    <rect x="5" y="10" width="20" height="2" fill="#e0d5ff" opacity="0.8"/>
+    <rect x="5" y="15" width="30" height="2" fill="#00ff88" opacity="0.8"/>
+    <rect x="0" y="20" width="40" height="2" fill="#bd00ff" opacity="0.8"/>
+    <rect x="10" y="25" width="15" height="2" fill="#e0d5ff" opacity="0.8"/>
+  </g>
+  
+  <!-- Terminal 2 - Global impact display -->
+  <rect x="280" y="270" width="80" height="60" fill="#1a1a1a" stroke="#bd00ff" stroke-width="2"/>
+  <rect x="290" y="280" width="60" height="40" fill="#0a0a0a"/>
+  
+  <!-- World map with connections -->
+  <g transform="translate(295, 285)">
+    <!-- Simplified world continents -->
+    <rect x="5" y="5" width="15" height="8" fill="#00ff88" opacity="0.5"/> <!-- North America -->
+    <rect x="25" y="8" width="12" height="10" fill="#00ff88" opacity="0.5"/> <!-- Europe -->
+    <rect x="40" y="12" width="8" height="6" fill="#00ff88" opacity="0.5"/> <!-- Asia -->
+    
+    <!-- Connection lines -->
+    <line x1="12" y1="9" x2="31" y2="13" stroke="#bd00ff" stroke-width="1" opacity="0.7"/>
+    <line x1="31" y1="13" x2="44" y2="15" stroke="#bd00ff" stroke-width="1" opacity="0.7"/>
+    
+    <!-- Impact indicators -->
+    <circle cx="12" cy="9" r="1" fill="#bd00ff"/>
+    <circle cx="31" cy="13" r="1" fill="#bd00ff"/>
+    <circle cx="44" cy="15" r="1" fill="#bd00ff"/>
+  </g>
+  
+  <!-- Data streams/particles -->
+  <circle cx="120" cy="50" r="2" fill="#00ff88" opacity="0.7">
+    <animate attributeName="cx" values="120;200;280" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="300" cy="80" r="2" fill="#bd00ff" opacity="0.6">
+    <animate attributeName="cx" values="300;220;140" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- AI processing indicators -->
+  <g transform="translate(60, 180)">
+    <rect x="0" y="0" width="30" height="20" fill="#1a1a1a" stroke="#bd00ff" stroke-width="1"/>
+    <rect x="5" y="5" width="20" height="10" fill="#bd00ff" opacity="0.3"/>
+    <text x="15" y="12" fill="#e0d5ff" font-size="6" text-anchor="middle">AI</text>
+    
+    <!-- Processing animation -->
+    <rect x="2" y="17" width="6" height="1" fill="#00ff88">
+      <animate attributeName="width" values="6;26;6" dur="2s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Social good symbols -->
+  <!-- Healthcare cross -->
+  <g transform="translate(350, 80)">
+    <rect x="8" y="2" width="4" height="16" fill="#00ff88"/>
+    <rect x="2" y="8" width="16" height="4" fill="#00ff88"/>
+  </g>
+  
+  <!-- Education book -->
+  <g transform="translate(20, 100)">
+    <rect x="0" y="0" width="20" height="15" fill="#bd00ff" opacity="0.8"/>
+    <rect x="2" y="2" width="16" height="11" fill="#e0d5ff"/>
+    <line x1="4" y1="5" x2="16" y2="5" stroke="#0a0a0a" stroke-width="1"/>
+    <line x1="4" y1="8" x2="16" y2="8" stroke="#0a0a0a" stroke-width="1"/>
+    <line x1="4" y1="11" x2="16" y2="11" stroke="#0a0a0a" stroke-width="1"/>
+  </g>
+</svg>

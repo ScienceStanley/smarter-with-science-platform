@@ -15,6 +15,16 @@ import Hexagon from '../ui/Hexagon.astro';
 ---
 
 <section class="relative section-padding-lg overflow-hidden">
+  <!-- Pixel art banner background -->
+  <div class="absolute inset-0 opacity-30">
+    <img 
+      src="/images/hero-banner-pixel.svg" 
+      alt="Pixel art galaxy background" 
+      class="w-full h-full object-cover"
+      style="image-rendering: pixelated;"
+    />
+  </div>
+  
   <!-- Background particle field -->
   <div class="particle-field" id="particle-field"></div>
   
